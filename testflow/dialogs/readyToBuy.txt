@@ -1,0 +1,9 @@
+LaunchRequest
+ReadyToBuyIntent
+AMAZON.YesIntent
+AMAZON.YesIntent
+CreditScoreIntent score=700
+AMAZON.YesIntent
+GivePhoneNumberIntent phone=2128675309
+AMAZON.YesIntent
+AMAZON.StopIntent

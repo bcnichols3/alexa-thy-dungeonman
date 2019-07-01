@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+process.env.NODE_ENV = 'local';
+require('dotenv').config({path: '.env'});
+
+var debug   = require('debug')('Heads Up'),
+    app     = require('../app');
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+
+    console.log(
+		'Express server listening on port ' + server.address().port,
+		'\nAPP ID', process.env.ALEXA_APP_ID,
+		'\nTABLE NAME', process.env.DYNAMO_TABLE_NAME
+	);
+    debug('Express server listening on port ' + server.address().port);
+});

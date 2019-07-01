@@ -1,0 +1,12 @@
+LaunchRequest
+CanIAffordIntent
+AMAZON.YesIntent
+AMAZON.YesIntent
+YearlyIncomeIntent amount=150000
+MonthlyExpensesIntent amount=600
+AMAZON.YesIntent
+AMAZON.YesIntent
+AMAZON.YesIntent
+GivePhoneNumberIntent phone=2128675309
+AMAZON.YesIntent
+AMAZON.StopIntent

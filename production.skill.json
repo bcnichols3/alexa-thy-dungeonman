@@ -1,0 +1,76 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "summary": "Train Chomp helps New York access MTA's subway information on their Alexa device.",
+          "examplePhrases": [
+            "Alexa open Train Chomp",
+            "Is the L train delayed?"
+          ],
+          "keywords": [
+            "new",
+            "york",
+            "mta",
+            "subway",
+            "commute",
+            "city",
+            "metro",
+            "rail",
+            "train",
+            "car"
+          ],
+          "name": "Train Chomp",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/6fee/75b6e67aa4bb44a7a041a0d947ea8280/APP_ICON?versionId=Oj8nSMnr8GnlAHQrdeBu38AOV2rNq_JB&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1540144416&Signature=DQbyfJm5NHdiz7Xm9xt88OEDbO8%3D",
+          "description": "Train Chomp helps New York access MTA's subway information on their Alexa device. From the 123 to the NQR, to even the Staten Island Railroad, get the latest updates directly from the official MTA datastream read to you by Alexa.",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/3d3f/39c464dfa91c41119c52489f519ae158/APP_ICON_LARGE?versionId=YWiijwcOiQ7H4XifvXVQ8E6UxWyLyZoX&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1540144416&Signature=od6E5M4X0M7wlrSi1jkVkCuaGVQ%3D"
+        }
+      },
+      "isAvailableWorldwide": true,
+      "category": "PUBLIC_TRANSPORTATION",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "arn:aws:lambda:us-east-1:722472928377:function:ask-mta-alexa-production"
+        },
+        "interfaces": [
+          {
+            "type": "RENDER_TEMPLATE",
+            "minimumTemplateVersion": "1.0"
+          }
+        ]
+      }
+    },
+    "manifestVersion": "1.0",
+    "permissions": [
+      {
+        "name": "alexa::devices:all:notifications:write"
+      }
+    ],
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "isChildDirected": false,
+      "usesPersonalInfo": false
+    },
+    "events": {
+      "endpoint": {
+        "uri": "arn:aws:lambda:us-east-1:722472928377:function:ask-mta-alexa-production"
+      },
+      "subscriptions": [
+        {
+          "eventName": "SKILL_ENABLED"
+        },
+        {
+          "eventName": "SKILL_PERMISSION_ACCEPTED"
+        },
+        {
+          "eventName": "SKILL_PERMISSION_CHANGED"
+        }
+      ]
+    }
+  }
+}

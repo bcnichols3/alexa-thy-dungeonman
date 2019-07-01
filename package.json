@@ -1,0 +1,40 @@
+{
+  "name": "wait-wait-alexa",
+  "version": "1.0.0",
+  "description": "Wait Wait Don't Tell Me NPR News Quiz on Alexa",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vaynermedia/wait-wait-alexa"
+  },
+  "scripts": {
+    "start": "gulp start-local",
+    "deploy": "ask deploy",
+    "test": "node ./testflow",
+    "lint": "prettier --write \"./**/*.{ts,tsx,js,json}\" \"!./build/**\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bluebird": "^3.5.1",
+    "dotenv": "^5.0.1",
+    "gulp": "4.0",
+    "gulp-beautify": "^2.0.1",
+    "gulp-changed": "^3.1.0",
+    "gulp-fluent-ffmpeg": "^1.0.2",
+    "gulp-json-transform": "^0.4.2",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-s3-upload": "^1.6.4",
+    "lodash": "^4.17.4",
+    "ngrok": "^2.2.25",
+    "nodemon": "^1.14.11",
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "ask-sdk": "^2.0.7"
+  }
+}

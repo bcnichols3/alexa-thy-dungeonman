@@ -1,0 +1,106 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "thy dungeon man",
+      "types": [
+        {
+          "name": "DIRECTION",
+          "values": [
+            {
+              "id": "north",
+              "name": {
+                "value": "north"
+              }
+            },
+            {
+              "id": "south",
+              "name": {
+                "value": "south"
+              }
+            },
+            {
+              "id": "east",
+              "name": {
+                "value": "east"
+              }
+            },
+            {
+              "id": "west",
+              "name": {
+                "value": "west"
+              }
+            }
+          ]
+        }
+      ],
+      "intents": [
+        {
+          "name": "GoIntent",
+          "slots": [
+            {
+              "name": "direction",
+              "type": "DIRECTION"
+            }
+          ],
+          "samples": [
+            "go {direction}",
+            "can I go {direction}",
+            "I want to go {direction}",
+            "let's go {direction}"
+          ]
+        },
+        {
+          "name": "AMAZON.YesIntent"
+        },
+        {
+          "name": "AMAZON.NoIntent"
+        },
+        {
+          "name": "AMAZON.HelpIntent"
+        },
+        {
+          "name": "AMAZON.StartOverIntent"
+        },
+        {
+          "name": "AMAZON.CancelIntent"
+        },
+        {
+          "name": "AMAZON.StopIntent"
+        },
+        {
+          "name": "AMAZON.PreviousIntent"
+        },
+        {
+          "name": "AMAZON.NextIntent"
+        },
+        {
+          "name": "AMAZON.MoreIntent"
+        },
+        {
+          "name": "AMAZON.PageDownIntent"
+        },
+        {
+          "name": "AMAZON.PageUpIntent"
+        },
+        {
+          "name": "AMAZON.ScrollRightIntent"
+        },
+        {
+          "name": "AMAZON.ScrollDownIntent"
+        },
+        {
+          "name": "AMAZON.ScrollLeftIntent"
+        },
+        {
+          "name": "AMAZON.ScrollUpIntent"
+        },
+        {
+          "name": "AMAZON.NavigateSettingsIntent"
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent"
+        }
+      ]
+    }
+  }
+}

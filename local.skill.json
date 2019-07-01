@@ -1,0 +1,67 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "summary": "Train Chomp helps New York access MTA's subway information on their alexa app.",
+          "examplePhrases": [
+            "Alexa open Train Chomp",
+            "Is the L train borked?"
+          ],
+          "keywords": [],
+          "name": "Train Chomp Dev",
+          "smallIconUri": "",
+          "description": "Train Chomp helps New York access MTA's subway information on their alexa app. From the 123 to the NQR, to even the Staten Island Railroad, get the latest updates directly from the official MTA datastream read to you by Alexa.",
+          "largeIconUri": ""
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Sample Testing Instructions.",
+      "category": "KNOWLEDGE_AND_TRIVIA",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "https://d5abea5f.ngrok.io",
+          "sslCertificateType": "Wildcard"
+        },
+        "interfaces": [
+          {
+            "type": "RENDER_TEMPLATE",
+            "minimumTemplateVersion": "1.0"
+          }
+        ]
+      }
+    },
+    "manifestVersion": "1.0",
+    "permissions": [
+      {
+        "name": "alexa::devices:all:notifications:write"
+      }
+    ],
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "isChildDirected": false,
+      "usesPersonalInfo": false
+    },
+    "events": {
+      "endpoint": {
+        "uri": "https://d5abea5f.ngrok.io"
+      },
+      "subscriptions": [
+        {
+          "eventName": "SKILL_ENABLED"
+        },
+        {
+          "eventName": "SKILL_PERMISSION_ACCEPTED"
+        },
+        {
+          "eventName": "SKILL_PERMISSION_CHANGED"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Thy_Dugeonman_Alexa_Lambda",
+  "version": "1.0.0",
+  "description": "Lambda for Thy Dungeonman",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ask-sdk": "^2.0.7",
+    "ask-sdk-dynamodb-persistence-adapter": "^2.0.7",
+    "ask-sdk-model": "^1.5.0",
+    "aws-sdk": "^2.302.0",
+    "lodash": "^4.17.11"
+  }
+}
