@@ -29,16 +29,7 @@ module.exports = [
         requestEnvelope,
       } = handlerInput;
 
-      const session = attributesManager.getSessionAttributes();
-      const { favoriteLineId, numVisits } = session;
 
-      if (favoriteLineId) {
-        return powerUser(handlerInput, { favoriteLineId });
-      } else if (numVisits) {
-        return returningUser(handlerInput);
-      } else {
-        return firstTimeUser(handlerInput);
-      }
     },
   },
 ];

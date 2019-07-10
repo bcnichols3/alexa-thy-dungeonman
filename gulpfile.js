@@ -18,6 +18,7 @@ const plugins = Plugins({
   scope: ["devDependencies"],
   replaceString: /^gulp(-|\.)/,
   lazy: false,
+  through2: require("through2")
 });
 
 /////////////////

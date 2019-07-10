@@ -17,6 +17,6 @@ exports.handler = Alexa.SkillBuilders.standard()
   .addErrorHandlers(...require("./handlers/error"))
   .addRequestInterceptors(...require("./interceptors/request"))
   .addResponseInterceptors(...require("./interceptors/response"))
-  .withTableName(process.env.DYNAMO_TABLE_NAME || "MTA_Production")
+  .withTableName(process.env.DYNAMO_TABLE_NAME || "thy_dungeonman")
   .withAutoCreateTable(true)
   .lambda();
