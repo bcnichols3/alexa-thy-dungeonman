@@ -9,14 +9,13 @@ exports.handler = Alexa.SkillBuilders.standard()
     new AWS.DynamoDB({ apiVersion: "latest", region: "us-east-1" })
   )
   .addRequestHandlers(
-    ...require("./handlers/skill-events"),
     ...require("./handlers/welcome"),
     ...require("./handlers/goodbye"),
     ...require("./handlers/exception")
   )
   .addErrorHandlers(...require("./handlers/error"))
-  .addRequestInterceptors(...require("./interceptors/request"))
-  .addResponseInterceptors(...require("./interceptors/response"))
-  .withTableName(process.env.DYNAMO_TABLE_NAME || "thy_dungeonman")
-  .withAutoCreateTable(true)
+  // .addRequestInterceptors(...require("./interceptors/request"))
+  // .addResponseInterceptors(...require("./interceptors/response"))
+  .withTableName(process.env.DYNAMO_TABLE_NAME || "Thy_Dungeonman")
+  .withAutoCreateTable(false)
   .lambda();

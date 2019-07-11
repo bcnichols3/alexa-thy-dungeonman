@@ -22,7 +22,7 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "uri": "https://8fcc4638.ngrok.io",
+          "uri": "https://6321c028.ngrok.io",
           "sslCertificateType": "Wildcard"
         },
         "interfaces": [{
@@ -44,7 +44,7 @@
     },
     "events": {
       "endpoint": {
-        "uri": "https://8fcc4638.ngrok.io",
+        "uri": "https://6321c028.ngrok.io",
         "sslCertificateType": "Wildcard"
       },
       "subscriptions": [{

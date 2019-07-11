@@ -16,7 +16,7 @@ const { giveAnnouncements, sayGoodbye } = require("./common");
 
 module.exports = [
   {
-    /** @param {"Alexa, open Train Chomp"} */
+    /** @param {"Alexa, open Thy Dungeonman"} */
     canHandle(handlerInput) {
       return validator(handlerInput)
         .launchRequest()
@@ -28,8 +28,11 @@ module.exports = [
         responseBuilder,
         requestEnvelope,
       } = handlerInput;
+      console.log("HIT WELCOME");
+      const speech = welcome.firstTime.speech[0].ssml;
+      const reprompt = welcome.firstTime.reprompt[0].ssml;
 
-
+      return simpleResponse(responseBuilder, {speech, reprompt});
     },
   },
 ];

@@ -3,9 +3,9 @@ module.exports = {
     speech: [
       {
         ssml:
-          '<p>Welcome to Train Chomp. Here you\'ll find status updates on subway lines in New York City, from the <say-as interpret-as="digits">123</say-as> to the Staten Island Railroad, all delivered from the official M.T.A. info wire.</p>',
+          'Welcome to Thy Dungeonman. You are thy dungeonman. Ye find yeself in yon dungeon. Ye see a scroll. Behind ye scroll is a flask. Obvious exits are north south and dennis.',
         altText:
-          "Welcome to Train Chomp. Here you'll find status updates on subway lines in New York City, from the 123 to the Staten Island Railroad.",
+          "Welcome to Thy Dungeonman. You are thy dungeonman. Ye find yeself in yon dungeon. Ye see a scroll. Behind ye scroll is a flask. Obvious exits are north south and dennis.",
       },
     ],
   },
