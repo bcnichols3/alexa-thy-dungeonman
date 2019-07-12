@@ -1,6 +1,6 @@
 module.exports = {
   help: {
-    speech: '<p>Say something like "Go south" </p>',
+    speech: '<p>Say something like, "go south," or, "go north."</p>',
     reprompt: "<p>Think you're all set?</p>",
   },
   startOver: {

@@ -15,7 +15,7 @@
     "deploy": "ask deploy",
     "process-audio": "gulp process-audio",
     "update-local": "gulp update-model-local",
-    "test": "node ./testflow",
+    "test": "node tests",
     "lint": "prettier --write \"./**/*.{ts,tsx,js,json}\" \"!./build/**\""
   },
   "author": "",
