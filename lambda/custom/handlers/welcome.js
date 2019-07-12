@@ -1,8 +1,8 @@
 const sample = require("lodash/sample");
 const util = require("util");
 
-const { state, newPersist, allSubwayIds } = require("../constants");
-const { welcome } = require("../responses");
+const { state, newPersist } = require("../constants");
+const { welcome,rooms } = require("../responses");
 const {
   simpleResponse,
   compileTemplate,
@@ -29,10 +29,7 @@ module.exports = [
         requestEnvelope,
       } = handlerInput;
       console.log("HIT WELCOME");
-      const speech = welcome.firstTime.speech[0].ssml;
-      const reprompt = welcome.firstTime.reprompt[0].ssml;
-
-      return simpleResponse(responseBuilder, {speech, reprompt});
+      return firstTimeUser(handlerInput);
     },
   },
 ];
@@ -40,8 +37,8 @@ module.exports = [
 /************** FREESTANDING HANDLE FUNCS **************/
 
 function firstTimeUser({ responseBuilder }) {
-  const speech = welcome.firstTime.speech[0].ssml;
-  const reprompt = sample(welcome.returning.reprompt).ssml;
+  const speech = welcome.firstTime.speech[0].ssml + rooms.entry.speech[0].ssml;
+  const reprompt = sample(rooms.reprompt).ssml;
 
   return simpleResponse(responseBuilder, { speech, reprompt });
 }

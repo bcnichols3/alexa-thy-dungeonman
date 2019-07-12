@@ -3,23 +3,17 @@ module.exports = {
     speech: [
       {
         ssml:
-          'Welcome to Thy Dungeonman. You are thy dungeonman. Ye find yeself in yon dungeon. Ye see a scroll. Behind ye scroll is a flask. Obvious exits are north south and dennis.',
-        altText:
-          "Welcome to Thy Dungeonman. You are thy dungeonman. Ye find yeself in yon dungeon. Ye see a scroll. Behind ye scroll is a flask. Obvious exits are north south and dennis.",
+          '<audio src="https://shining-advance.s3.amazonaws.com/audio/intro.mp3"/><p>Welcome to Thy Dungeonman. You are thy dungeonman.</p>',
+        altText: "Welcome to Thy Dungeonman. You are thy dungeonman.",
       },
     ],
   },
   returning: {
     speech: [
       {
-        ssml: "<p>Welcome back to Train Chomp.</p>",
-        altText: "Welcome back to Train Chomp.",
-      },
-    ],
-    reprompt: [
-      {
-        ssml: "<p>What subway line?</p>",
-        altText: "What subway line?",
+        ssml:
+          '<audio src="https://shining-advance.s3.amazonaws.com/audio/intro.mp3"/><p>Welcome back to Thy Dungeonman. You are thy dungeonman.</p>',
+        altText: "Welcome back to Thy Dungeonman. You are thy dungeonman.",
       },
     ],
   },

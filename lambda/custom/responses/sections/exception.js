@@ -1,15 +1,15 @@
 module.exports = {
   help: {
-    speech: "<p>This is how you set up Train Chomp</p>",
+    speech: '<p>Say something like "Go south" </p>',
     reprompt: "<p>Think you're all set?</p>",
   },
   startOver: {
     speech: "<p>Ok, let's start from the beginning.</p>",
   },
   repeat: {
-    speech: "",
+    speech: "<p>Ok, listen up this time bucko.</p>",
   },
   error: {
-    speech: "<p>I didn't understand that. Mind repeating?</p>",
+    speech: "<p>That does not compute eth. Say Help if thou needs of it.</p>",
   },
 };
