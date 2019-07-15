@@ -7,4 +7,8 @@ module.exports = Object.freeze({
   newPersist: {
     numVisits: 0,
   },
+  newSession: {
+    curRoom: "dungeon",
+    state: "WELCOME",
+  },
 });

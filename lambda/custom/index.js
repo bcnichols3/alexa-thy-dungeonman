@@ -10,6 +10,7 @@ exports.handler = Alexa.SkillBuilders.standard()
   )
   .addRequestHandlers(
     ...require("./handlers/welcome"),
+    ...require("./handlers/rooms"),
     ...require("./handlers/goodbye"),
     ...require("./handlers/exception")
   )

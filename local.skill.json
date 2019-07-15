@@ -22,7 +22,7 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "uri": "https://dade04db.ngrok.io",
+          "uri": "https://81cef029.ngrok.io",
           "sslCertificateType": "Wildcard"
         },
         "interfaces": [{
@@ -44,7 +44,7 @@
     },
     "events": {
       "endpoint": {
-        "uri": "https://dade04db.ngrok.io",
+        "uri": "https://81cef029.ngrok.io",
         "sslCertificateType": "Wildcard"
       },
       "subscriptions": [{

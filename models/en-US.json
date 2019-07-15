@@ -29,11 +29,83 @@
               "name": {
                 "value": "west"
               }
+            },
+            {
+              "id": "dennis",
+              "name": {
+                "value": "dennis"
+              }
+            },
+            {
+              "id": "notDennis",
+              "name": {
+                "value": "not dennis",
+                "synonyms": [
+                  "away from dennis"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "THING",
+          "values": [
+            {
+              "id": "dennis",
+              "name": {
+                "value": "dennis",
+                "synonyms": [
+                  "dennis"
+                ]
+              }
+            },
+            {
+              "id": "flask",
+              "name": {
+                "value": "flask"
+              }
+            },
+            {
+              "id": "rope",
+              "name": {
+                "value": "rope"
+              }
             }
           ]
         }
       ],
       "intents": [
+        {
+          "name": "LookIntent",
+          "slots":  [
+            {
+              "name": "thing",
+              "type": "THING"
+            }
+          ],
+          "samples": [
+            "look",
+            "look {thing}",
+            "looketh {thing}",
+            "look ye {thing}",
+            "look at {thing}"
+          ]
+        },
+        {
+          "name": "TakeIntent",
+          "slots":  [
+            {
+              "name": "thing",
+              "type": "THING"
+            }
+          ],
+          "samples": [
+            "get {thing}",
+            "get ye {thing}",
+            "take {thing}",
+            "take ye {thing}"
+          ]
+        },
         {
           "name": "GoIntent",
           "slots": [
@@ -44,8 +116,11 @@
           ],
           "samples": [
             "go {direction}",
+            "go ye {direction}",
+            "goeth {direction}",
             "can I go {direction}",
             "I want to go {direction}",
+            "I wish to go {direction}",
             "let's go {direction}"
           ]
         },
@@ -56,10 +131,17 @@
           "name": "AMAZON.NoIntent"
         },
         {
-          "name": "AMAZON.HelpIntent"
+          "name": "AMAZON.HelpIntent",
+          "samples": [
+            "helpeth",
+            "helpeth me"
+          ]
         },
         {
-          "name": "AMAZON.StartOverIntent"
+          "name": "AMAZON.StartOverIntent",
+          "samples": [
+            "start ye game over again"
+          ]
         },
         {
           "name": "AMAZON.CancelIntent"

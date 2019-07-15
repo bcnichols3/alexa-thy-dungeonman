@@ -7,10 +7,9 @@ const {
   updateSessionAttributes,
   createList,
   createSSML,
+  getSlot,
 } = require("../helpers");
-const { state } = require("../constants");
-const { info, goodbye } = require("../responses");
-
+const { rooms, goodbye, exception } = require("../responses");
 
 /**
 	Common 'handlers' are funcs that can be called inside actual handler
@@ -20,10 +19,65 @@ const { info, goodbye } = require("../responses");
 */
 
 const commonHandlers = {
+  interact,
+  killPlayer,
+  goToRoom,
   sayGoodbye,
 };
 
 /************** FREESTANDING HANDLE FUNCS **************/
+
+function interact(handlerInput, options) {
+  const { attributesManager, responseBuilder } = handlerInput;
+
+  const { curRoom } = attributesManager.getSessionAttributes();
+  const thingSlot = getSlot(requestEnvelope, "thing");
+
+  const thing = rooms[curRoom].interactables[thingSlot.id];
+
+  if (!thing) return simpleResponse(responseBuilder, exception.error);
+  if (thing.handler) return thing.handler(handlerInput, options);
+  if (thing.response) return simpleResponse(responseBuilder, thing.response);
+
+  return simpleResponse(responseBuilder, exception.error);
+}
+
+function goToRoom(handlerInput, { speech = "" }) {
+  const { requestEnvelope, attributesManager, responseBuilder } = handlerInput;
+
+  const dirSlot = getSlot(requestEnvelope, "direction");
+
+  const curRoom = attributesManager.getSessionAttributes().curRoom || "dungeon";
+
+  const headedTo = dirSlot.id
+    ? rooms[curRoom].connections[dirSlot.id]
+    : "dungeon";
+
+  if (!headedTo) return simpleResponse(responseBuilder, exception.error);
+
+  updateSessionAttributes(attributesManager, {
+    curRoom: headedTo,
+  });
+
+  speech = speech + rooms[headedTo].intro.speech.ssml;
+  const reprompt = rooms.reprompt[0].ssml;
+
+  return simpleResponse(responseBuilder, { speech, reprompt });
+}
+
+function killPlayer(handlerInput, { speech = "" }) {
+  const { attributesManager, responseBuilder } = handlerInput;
+
+  updateSessionAttributes(attributesManager, {
+    state: state.GOODBYE,
+  });
+  console.log("speech", speech);
+
+  speech += goodbye.score.speech.ssml;
+  const reprompt = goodbye.playAgain.speech.ssml;
+
+  return simpleResponse(responseBuilder, { speech, reprompt });
+}
 
 function sayGoodbye(handlerInput, { speech = "", card, permissions }) {
   const { attributesManager, responseBuilder } = handlerInput;
@@ -40,6 +94,5 @@ function sayGoodbye(handlerInput, { speech = "", card, permissions }) {
 
   return builder.getResponse();
 }
-
 
 module.exports = commonHandlers;
