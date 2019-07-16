@@ -9,7 +9,8 @@ const {
   createSSML,
   getSlot,
 } = require("../helpers");
-const { rooms, goodbye, exception } = require("../responses");
+const { state } = require("../constants");
+const { rooms, goodbye, play } = require("../responses");
 
 /**
 	Common 'handlers' are funcs that can be called inside actual handler
@@ -19,33 +20,21 @@ const { rooms, goodbye, exception } = require("../responses");
 */
 
 const commonHandlers = {
-  interact,
   killPlayer,
   goToRoom,
+  lookAtItem,
+  takeItem,
   sayGoodbye,
 };
 
 /************** FREESTANDING HANDLE FUNCS **************/
 
-function interact(handlerInput, options) {
-  const { attributesManager, responseBuilder } = handlerInput;
-
-  const { curRoom } = attributesManager.getSessionAttributes();
-  const thingSlot = getSlot(requestEnvelope, "thing");
-
-  const thing = rooms[curRoom].interactables[thingSlot.id];
-
-  if (!thing) return simpleResponse(responseBuilder, exception.error);
-  if (thing.handler) return thing.handler(handlerInput, options);
-  if (thing.response) return simpleResponse(responseBuilder, thing.response);
-
-  return simpleResponse(responseBuilder, exception.error);
-}
-
 function goToRoom(handlerInput, { speech = "" }) {
   const { requestEnvelope, attributesManager, responseBuilder } = handlerInput;
 
-  const dirSlot = getSlot(requestEnvelope, "direction");
+  const dirSlot = getSlot(requestEnvelope, "thing");
+
+  console.log("direction", dirSlot.id);
 
   const curRoom = attributesManager.getSessionAttributes().curRoom || "dungeon";
 
@@ -53,16 +42,74 @@ function goToRoom(handlerInput, { speech = "" }) {
     ? rooms[curRoom].connections[dirSlot.id]
     : "dungeon";
 
-  if (!headedTo) return simpleResponse(responseBuilder, exception.error);
+  if (!headedTo)
+    return simpleResponse(responseBuilder, {
+      speech: play.invalid.go.ssml,
+    });
 
   updateSessionAttributes(attributesManager, {
     curRoom: headedTo,
   });
 
-  speech = speech + rooms[headedTo].intro.speech.ssml;
-  const reprompt = rooms.reprompt[0].ssml;
+  return simpleResponse(responseBuilder, {
+    speech: speech + rooms[headedTo].intro.ssml,
+    reprompt: play.reprompt.ssml,
+  });
+}
 
-  return simpleResponse(responseBuilder, { speech, reprompt });
+function takeItem(handlerInput, { speech = "" }) {
+  const { requestEnvelope, attributesManager, responseBuilder } = handlerInput;
+  const thingSlot = getSlot(requestEnvelope, "thing");
+
+  const session = attributesManager.getSessionAttributes();
+  const curRoom = session.curRoom || "dungeon";
+  const score = session.score || 0;
+
+  if (thingSlot.id === "dagger") {
+    updateSessionAttributes(attributesManager, {
+      score: score + 25,
+    });
+    return simpleResponse(responseBuilder, {
+      speech: play.dagger.ssml,
+      reprompt: play.reprompt.ssml,
+    });
+  }
+
+  const item = rooms[curRoom].items[thingSlot.id];
+
+  if (!item || !item.take)
+    return simpleResponse(responseBuilder, {
+      speech: play.invalid.take.ssml,
+      reprompt: play.reprompt.ssml,
+    });
+
+  if (item.isLethal)
+    return killPlayer(handlerInput, { speech: speech + item.take.ssml });
+
+  return simpleResponse(responseBuilder, {
+    speech: speech + item.take.ssml,
+    reprompt: play.reprompt.ssml,
+  });
+}
+
+function lookAtItem(handlerInput, {}) {
+  const { requestEnvelope, attributesManager, responseBuilder } = handlerInput;
+  const thingSlot = getSlot(requestEnvelope, "thing");
+
+  const curRoom = attributesManager.getSessionAttributes().curRoom || "dungeon";
+
+  const item = rooms[curRoom].items[thingSlot.id];
+
+  if (!item || !item.look)
+    return simpleResponse(responseBuilder, {
+      speech: play.invalid.look.ssml,
+      reprompt: play.reprompt.ssml,
+    });
+
+  return simpleResponse(responseBuilder, {
+    speech: item.look.ssml,
+    reprompt: play.reprompt.ssml,
+  });
 }
 
 function killPlayer(handlerInput, { speech = "" }) {
@@ -71,18 +118,19 @@ function killPlayer(handlerInput, { speech = "" }) {
   updateSessionAttributes(attributesManager, {
     state: state.GOODBYE,
   });
-  console.log("speech", speech);
 
-  speech += goodbye.score.speech.ssml;
-  const reprompt = goodbye.playAgain.speech.ssml;
+  const { score } = attributesManager.getSessionAttributes();
 
-  return simpleResponse(responseBuilder, { speech, reprompt });
+  return simpleResponse(responseBuilder, {
+    speech: speech + `<p>Your score was ${score}</p>`,
+    reprompt: goodbye.playAgain.ssml,
+  });
 }
 
 function sayGoodbye(handlerInput, { speech = "", card, permissions }) {
-  const { attributesManager, responseBuilder } = handlerInput;
+  const { responseBuilder } = handlerInput;
 
-  speech += sample(goodbye.final.speech).ssml;
+  speech += goodbye.final.ssml;
 
   const builder = responseBuilder.speak(speech).withShouldEndSession(true);
   if (card) {

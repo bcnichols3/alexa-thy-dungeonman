@@ -1,10 +1,10 @@
 const sample = require("lodash/sample");
 
 const { exception, goodbye } = require("../responses");
-const { validator } = require("../helpers");
+const { validator, updateSessionAttributes } = require("../helpers");
 const { state } = require("../constants");
 
-const { sayGoodbye, startNewGame } = require("./common");
+const { sayGoodbye, goToRoom } = require("./common");
 
 /************** HANDLERS **************/
 
@@ -28,23 +28,15 @@ module.exports = [
         .yesIntent()
         .getValue();
     },
-    handle(handlerInput) {},
-  },
-  {
-    /** @param {"Yes, help me set up notifications"} */
-    canHandle(handlerInput) {
-      return validator(handlerInput)
-        .state(state.NOTIFICATIONS)
-        .yesIntent()
-        .getValue();
-    },
     handle(handlerInput) {
-      const speech = sample(goodbye.notesHelp.speech).ssml;
+      const { attributesManager } = handlerInput;
 
-      return sayGoodbye(handlerInput, {
-        speech,
-        permissions: ["alexa::devices:all:notifications:write"],
+      updateSessionAttributes(attributesManager, {
+        state: state.WELCOME,
+        curRoom: "dungeon",
       });
+
+      return goToRoom(handlerInput, {});
     },
   },
   {

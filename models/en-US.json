@@ -4,36 +4,154 @@
       "invocationName": "thy dungeon man",
       "types": [
         {
-          "name": "DIRECTION",
+          "name": "ACTION",
+          "values": [
+            {
+              "id": "go",
+              "name": {
+                "value": "go",
+                "synonyms": [
+                  "goeth",
+                  "travel to",
+                  "goeth to",
+                  "walk to",
+                  "walketh to",
+                  "run",
+                  "move",
+                  "move to"
+                ]
+              }
+            },
+            {
+              "id": "take",
+              "name": {
+                "value": "take",
+                "synonyms": [
+                  "get",
+                  "give me",
+                  "give us"
+                ]
+              }
+            },
+            {
+              "id": "look",
+              "name": {
+                "value": "look",
+                "synonyms": [
+                  "looketh",
+                  "look at",
+                  "inspect"
+                ]
+              }
+            },
+            {
+              "id": "talk",
+              "name": {
+                "value": "talk",
+                "synonyms": [
+                  "talk to",
+                  "speak",
+                  "speak to",
+                  "hail",
+                  "hail to"
+                ]
+              }
+            },
+            {
+              "id": "give",
+              "name": {
+                "value": "give",
+                "synonyms": [
+                  "give to",
+                  "present",
+                  "gift",
+                  "make a gift of",
+                  "make a present of",
+                  "offer",
+                  "give away"
+                ]
+              }
+            },
+            {
+              "id": "dance",
+              "name": {
+                "value": "dance",
+                "synonyms": [
+                  "shake my booty",
+                  "shake our booty"
+                ]
+              }
+            },
+            {
+              "id": "die",
+              "name": {
+                "value": "die"
+              }
+            },
+            {
+              "id": "smell",
+              "name": {
+                "value": "smell",
+                "synonyms": [
+                  "sniff",
+                  "smell air",
+                  "smell room"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "THING",
           "values": [
             {
               "id": "north",
               "name": {
-                "value": "north"
+                "value": "north",
+                "synonyms": [
+                  "towards north",
+                  "to north"
+                ]
               }
             },
             {
               "id": "south",
               "name": {
-                "value": "south"
+                "value": "south",
+                "synonyms": [
+                  "towards south",
+                  "to south"
+                ]
               }
             },
             {
               "id": "east",
               "name": {
-                "value": "east"
+                "value": "east",
+                "synonyms": [
+                  "towards east",
+                  "to east"
+                ]
               }
             },
             {
               "id": "west",
               "name": {
-                "value": "west"
+                "value": "west",
+                "synonyms": [
+                  "towards west",
+                  "to west"
+                ]
               }
             },
             {
               "id": "dennis",
               "name": {
-                "value": "dennis"
+                "value": "dennis",
+                "synonyms": [
+                  "towards dennis",
+                  "to dennis"
+                ]
               }
             },
             {
@@ -44,20 +162,6 @@
                   "away from dennis"
                 ]
               }
-            }
-          ]
-        },
-        {
-          "name": "THING",
-          "values": [
-            {
-              "id": "dennis",
-              "name": {
-                "value": "dennis",
-                "synonyms": [
-                  "dennis"
-                ]
-              }
             },
             {
               "id": "flask",
@@ -66,9 +170,33 @@
               }
             },
             {
+              "id": "scroll",
+              "name": {
+                "value": "scroll"
+              }
+            },
+            {
+              "id": "trinket",
+              "name": {
+                "value": "trinket"
+              }
+            },
+            {
+              "id": "jimberjam",
+              "name": {
+                "value": "jimberjam"
+              }
+            },
+            {
               "id": "rope",
               "name": {
                 "value": "rope"
+              }
+            },
+            {
+              "id": "dagger",
+              "name": {
+                "value": "dagger"
               }
             }
           ]
@@ -76,52 +204,45 @@
       ],
       "intents": [
         {
-          "name": "LookIntent",
-          "slots":  [
-            {
-              "name": "thing",
-              "type": "THING"
-            }
-          ],
-          "samples": [
-            "look",
-            "look {thing}",
-            "looketh {thing}",
-            "look ye {thing}",
-            "look at {thing}"
-          ]
-        },
-        {
-          "name": "TakeIntent",
-          "slots":  [
-            {
-              "name": "thing",
-              "type": "THING"
-            }
-          ],
-          "samples": [
-            "get {thing}",
-            "get ye {thing}",
-            "take {thing}",
-            "take ye {thing}"
-          ]
-        },
-        {
-          "name": "GoIntent",
+          "name": "ActionIntent",
           "slots": [
             {
-              "name": "direction",
-              "type": "DIRECTION"
+              "name": "action",
+              "type": "ACTION"
+            },
+            {
+              "name": "thing",
+              "type": "THING"
             }
           ],
           "samples": [
-            "go {direction}",
-            "go ye {direction}",
-            "goeth {direction}",
-            "can I go {direction}",
-            "I want to go {direction}",
-            "I wish to go {direction}",
-            "let's go {direction}"
+            "{action} me {thing}",
+            "{action} ye {thing}",
+            "{action} me ye {thing}",
+            "{action} us ye {thing}",
+            "{action} yonder {thing}",
+            "can I {action} {thing}",
+            "can I {action} {thing}",
+            "can I {action} ye {thing}",
+            "can we {action} {thing}",
+            "can we {action} ye {thing}"
+          ]
+        },
+        {
+          "name": "ActionOnlyIntent",
+          "slots": [
+            {
+              "name": "action",
+              "type": "ACTION"
+            },
+            {
+              "name": "thing",
+              "type": "THING"
+            }
+          ],
+          "samples": [
+            "{action}",
+            "{action} {thing}"
           ]
         },
         {

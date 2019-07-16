@@ -9,6 +9,7 @@ module.exports = Object.freeze({
   },
   newSession: {
     curRoom: "dungeon",
+    score: 0,
     state: "WELCOME",
   },
 });
