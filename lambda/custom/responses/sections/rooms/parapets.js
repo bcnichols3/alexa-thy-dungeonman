@@ -16,12 +16,13 @@ module.exports = {
       },
     },
     rope: {
-      isLethal: true,
       look: {
         ssml: "<p>It looks okay. You've seen better.</p>",
         altText: "It looks okay. You've seen better.",
       },
       take: {
+        score: -1,
+        endsGame: true,
         ssml:
           "<p>You attempt to take ye rope but alas it is enchanted! It glows a mustard red and smells like a public privy. The rope wraps round your neck and hangs you from parapets. With your last breath, you wonder what parapets are.</p>",
         altText:

@@ -15,6 +15,7 @@ module.exports = {
         altText: "Quit looking! Just get it already.",
       },
       take: {
+        score: 2,
         ssml:
           "<p>Ye getsts yon trinket and discover it to be a bauble. You rejoice at your good fortune. You shove the trinket in your pouchel. It kinda hurts.</p>",
         altText:

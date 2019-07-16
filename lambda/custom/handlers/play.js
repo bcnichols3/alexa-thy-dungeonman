@@ -1,20 +1,15 @@
-const { rooms, play, exception } = require("../responses");
-const {
-  validator,
-  simpleResponse,
-  updateSessionAttributes,
-  getSlot,
-} = require("../helpers");
-const { goToRoom, takeItem, killPlayer, lookAtItem } = require("./common");
+const { play, exception } = require("../responses");
+const { validator, simpleResponse, getSlot } = require("../helpers");
+const { goToRoom, interact, endGame } = require("./common");
 
 /************** HANDLERS **************/
 
 const actionsHandlerMap = {
   go: goToRoom,
-  take: takeItem,
-  look: lookAtItem,
+  take: interact,
+  look: interact,
   die(handlerInput) {
-    return killPlayer(handlerInput, { speech: play.die.ssml });
+    return endGame(handlerInput, { speech: play.die.ssml });
   },
   dance({ responseBuilder }) {
     return simpleResponse(responseBuilder, {

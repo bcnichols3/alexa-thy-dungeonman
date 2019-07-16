@@ -4,6 +4,7 @@ module.exports = {
   goodbye: require("./sections/goodbye"),
   exception: require("./sections/exception"),
   rooms: {
+    global: require("./sections/rooms/global"),
     dungeon: require("./sections/rooms/dungeon"),
     parapets: require("./sections/rooms/parapets"),
     embankment: require("./sections/rooms/embankment"),

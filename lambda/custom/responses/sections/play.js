@@ -4,12 +4,9 @@ module.exports = {
     altText: "What wouldst thou deau?",
   },
   die: {
+    score: -100,
     ssml: "<p>That wasn't very smart.</p>",
     altText: "That wasn't very smart.",
-  },
-  dagger: {
-    ssml: "<p>Yeah, okay.</p>",
-    altText: "Yeah, okay.",
   },
   dance: {
     ssml: "<p>Thou shaketh a little and it feeleth alright.</p>",

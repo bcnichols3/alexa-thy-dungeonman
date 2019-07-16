@@ -14,6 +14,12 @@ module.exports = {
         ssml: "<p>That jimberjam really makes the outfit.</p>",
         altText: "That jimberjam really makes the outfit.",
       },
+      talk: {
+        ssml:
+          "<p>You engage Dennis in leisurely discussion. Ye learns that his jimberjam was purchased on sale at a discount market and that he enjoys pacing about nervously. You become bored and begin thinking about parapets.</p>",
+        altText:
+          "You engage Dennis in leisurely discussion. Ye learns that his jimberjam was purchased on sale at a discount market and that he enjoys pacing about nervously. You become bored and begin thinking about parapets.",
+      },
     },
     jimberjam: {
       look: {

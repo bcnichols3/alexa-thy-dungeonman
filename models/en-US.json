@@ -27,7 +27,9 @@
               "name": {
                 "value": "take",
                 "synonyms": [
+                  "taketh",
                   "get",
+                  "steal",
                   "give me",
                   "give us"
                 ]
@@ -64,7 +66,9 @@
                 "synonyms": [
                   "give to",
                   "present",
+                  "present to",
                   "gift",
+                  "gift to",
                   "make a gift of",
                   "make a present of",
                   "offer",
@@ -95,7 +99,9 @@
                 "synonyms": [
                   "sniff",
                   "smell air",
-                  "smell room"
+                  "sniff air",
+                  "smell room",
+                  "sniff room"
                 ]
               }
             }
@@ -184,7 +190,15 @@
             {
               "id": "jimberjam",
               "name": {
-                "value": "jimberjam"
+                "value": "jimberjam",
+                "synonyms": [
+                  "pajama",
+                  "pajamas",
+                  "frock",
+                  "frock coat",
+                  "sporty frock",
+                  "sporty frock coat"
+                ]
               }
             },
             {
@@ -196,7 +210,11 @@
             {
               "id": "dagger",
               "name": {
-                "value": "dagger"
+                "value": "dagger",
+                "synonyms": [
+                  "knife",
+                  "blade"
+                ]
               }
             }
           ]
