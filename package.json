@@ -1,7 +1,7 @@
 {
-  "name": "wait-wait-alexa",
+  "name": "thy-dungeonman-dev",
   "version": "1.0.0",
-  "description": "Wait Wait Don't Tell Me NPR News Quiz on Alexa",
+  "description": "Thy Dungeonman on Alexa",
   "main": "gulpfile.js",
   "directories": {
     "test": "tests"
@@ -13,14 +13,19 @@
   "scripts": {
     "start": "gulp start-local",
     "deploy": "ask deploy",
-    "test": "node ./testflow",
+    "process-audio": "gulp process-audio",
+    "update-local": "gulp update-model-local",
+    "test": "node tests",
     "lint": "prettier --write \"./**/*.{ts,tsx,js,json}\" \"!./build/**\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "bluebird": "^3.5.1",
+    "ask-sdk": "^2.0.7",
+    "bluebird": "^3.5.5",
+    "body-parser": "^1.19.0",
     "dotenv": "^5.0.1",
+    "express": "^4.17.1",
     "gulp": "4.0",
     "gulp-beautify": "^2.0.1",
     "gulp-changed": "^3.1.0",
@@ -32,9 +37,7 @@
     "lodash": "^4.17.4",
     "ngrok": "^2.2.25",
     "nodemon": "^1.14.11",
-    "prettier": "^1.18.2"
-  },
-  "dependencies": {
-    "ask-sdk": "^2.0.7"
+    "prettier": "^1.18.2",
+    "through2": "^3.0.1"
   }
 }

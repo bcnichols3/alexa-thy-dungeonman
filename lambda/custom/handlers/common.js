@@ -7,14 +7,9 @@ const {
   updateSessionAttributes,
   createList,
   createSSML,
+  getSlot,
 } = require("../helpers");
-const { state } = require("../constants");
-const { info, goodbye } = require("../responses");
-
-const {
-  fetchSubwayAnnouncements,
-  fetchStationArrivals,
-} = require("../mta-gtfs");
+const { rooms, goodbye, exception } = require("../responses");
 
 /**
 	Common 'handlers' are funcs that can be called inside actual handler
@@ -24,100 +19,64 @@ const {
 */
 
 const commonHandlers = {
-  giveAnnouncements,
-  giveArrivals,
-  setFavoriteLine,
+  interact,
+  killPlayer,
+  goToRoom,
   sayGoodbye,
 };
 
 /************** FREESTANDING HANDLE FUNCS **************/
 
-async function giveAnnouncements(handlerInput, { lineId }) {
-  const { responseBuilder, attributesManager } = handlerInput;
-
-  const session = attributesManager.getSessionAttributes();
-
-  if (!session.subwayInfo) {
-    session.subwayInfo = await fetchSubwayAnnouncements();
-  }
-
-  const subwayLine = session.subwayInfo[lineId];
-  const status = camelCase(subwayLine.status);
-
-  const template = sample(info.statuses[status]);
-  let speech = compileTemplate(template.ssml, {
-    subwayLine: subwayLine.spokenName,
-  });
-
-  let retortsArray = info.retorts[status] || [];
-
-  if (status !== "goodService") {
-    retortsArray = retortsArray.concat(info.retorts.badService);
-  }
-  speech += sample(retortsArray).ssml;
-
-  if (session.numVisits % 5 === 0 && !session.favoriteLineId) {
-    updateSessionAttributes(attributesManager, {
-      state: state.SETTINGS,
-      lineId,
-    });
-    const reprompt = compileTemplate(info.setFavorite.ssml, {
-      subwayLine: subwayLine.spokenName,
-    });
-    return simpleResponse(responseBuilder, { speech, reprompt });
-  } else {
-    if (session.numVisits < 7 && status !== "goodService") {
-      speech += info.moreInfo.ssml;
-    }
-
-    return responseBuilder
-      .speak(speech)
-      .withShouldEndSession(true)
-      .getResponse();
-  }
-}
-
-async function giveArrivals(handlerInput, { fetchArrivalsArguments }) {
-  const { responseBuilder } = handlerInput;
-
-  const data = await fetchStationArrivals(...fetchArrivalsArguments);
-
-  let speech;
-  if (data) {
-    const { template } = info.arrivals;
-
-    speech = compileTemplate(template, {
-      route: data.route || data.station.daytimeRoutes,
-      station: data.station.spokenName,
-      arrivalTimes: createArrivalsArray(data.arrivals),
-    });
-  } else {
-    speech = info.cannotReachMTA.ssml;
-  }
-
-  return responseBuilder
-    .speak(speech)
-    .withShouldEndSession(true)
-    .getResponse();
-}
-
-function setFavoriteLine(handlerInput, { favoriteLineId }) {
+function interact(handlerInput, options) {
   const { attributesManager, responseBuilder } = handlerInput;
 
-  const { lineId } = attributesManager.getSessionAttributes();
+  const { curRoom } = attributesManager.getSessionAttributes();
+  const thingSlot = getSlot(requestEnvelope, "thing");
 
-  favoriteLineId = favoriteLineId || lineId;
+  const thing = rooms[curRoom].interactables[thingSlot.id];
 
-  updateSessionAttributes(attributesManager, { favoriteLineId });
+  if (!thing) return simpleResponse(responseBuilder, exception.error);
+  if (thing.handler) return thing.handler(handlerInput, options);
+  if (thing.response) return simpleResponse(responseBuilder, thing.response);
 
-  const speech = compileTemplate(info.favoriteLineIsSet.ssml, {
-    subwayLine: favoriteLineId,
+  return simpleResponse(responseBuilder, exception.error);
+}
+
+function goToRoom(handlerInput, { speech = "" }) {
+  const { requestEnvelope, attributesManager, responseBuilder } = handlerInput;
+
+  const dirSlot = getSlot(requestEnvelope, "direction");
+
+  const curRoom = attributesManager.getSessionAttributes().curRoom || "dungeon";
+
+  const headedTo = dirSlot.id
+    ? rooms[curRoom].connections[dirSlot.id]
+    : "dungeon";
+
+  if (!headedTo) return simpleResponse(responseBuilder, exception.error);
+
+  updateSessionAttributes(attributesManager, {
+    curRoom: headedTo,
   });
 
-  return responseBuilder
-    .speak(speech)
-    .withShouldEndSession(true)
-    .getResponse();
+  speech = speech + rooms[headedTo].intro.speech.ssml;
+  const reprompt = rooms.reprompt[0].ssml;
+
+  return simpleResponse(responseBuilder, { speech, reprompt });
+}
+
+function killPlayer(handlerInput, { speech = "" }) {
+  const { attributesManager, responseBuilder } = handlerInput;
+
+  updateSessionAttributes(attributesManager, {
+    state: state.GOODBYE,
+  });
+  console.log("speech", speech);
+
+  speech += goodbye.score.speech.ssml;
+  const reprompt = goodbye.playAgain.speech.ssml;
+
+  return simpleResponse(responseBuilder, { speech, reprompt });
 }
 
 function sayGoodbye(handlerInput, { speech = "", card, permissions }) {
@@ -134,23 +93,6 @@ function sayGoodbye(handlerInput, { speech = "", card, permissions }) {
   }
 
   return builder.getResponse();
-}
-
-/************** UNIQUE HELPERS **************/
-
-function createArrivalsArray(arrivals) {
-  const nowInSeconds = Date.now() / 1000;
-
-  const arrayOfTimes = arrivals.map(arrival => {
-    const arrivesInMinutes = Math.floor(
-      (arrival.arrivalTime - nowInSeconds) / 60
-    );
-
-    if (arrivesInMinutes === 1) return `${arrivesInMinutes} minute`;
-    else return `${arrivesInMinutes} minutes`;
-  });
-
-  return createList(arrayOfTimes);
 }
 
 module.exports = commonHandlers;

@@ -1,6 +1,4 @@
-const { state, newPersist } = require("../../constants");
-
-const { fetchSubwayAnnouncements } = require("../../mta-gtfs");
+const { newPersist, newSession } = require("../../constants");
 
 module.exports = async function createNewSession(handlerInput) {
   const { requestEnvelope, attributesManager } = handlerInput;
@@ -9,12 +7,7 @@ module.exports = async function createNewSession(handlerInput) {
 
   const persist = await attributesManager.getPersistentAttributes();
 
-  const subwayInfo = await fetchSubwayAnnouncements();
-
-  const session = Object.assign({}, newPersist, persist, {
-    state: state.WELCOME,
-    subwayInfo,
-  });
+  const session = Object.assign({}, newPersist, persist, newSession);
 
   attributesManager.setSessionAttributes(session);
 };

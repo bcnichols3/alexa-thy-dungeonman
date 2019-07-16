@@ -1,8 +1,7 @@
 const sample = require("lodash/sample");
-const util = require("util");
 
-const { state, newPersist, allSubwayIds } = require("../constants");
-const { welcome } = require("../responses");
+const { state, newPersist } = require("../constants");
+const { welcome, rooms } = require("../responses");
 const {
   simpleResponse,
   compileTemplate,
@@ -16,7 +15,7 @@ const { giveAnnouncements, sayGoodbye } = require("./common");
 
 module.exports = [
   {
-    /** @param {"Alexa, open Train Chomp"} */
+    /** @param {"Alexa, open Thy Dungeonman"} */
     canHandle(handlerInput) {
       return validator(handlerInput)
         .launchRequest()
@@ -29,16 +28,7 @@ module.exports = [
         requestEnvelope,
       } = handlerInput;
 
-      const session = attributesManager.getSessionAttributes();
-      const { favoriteLineId, numVisits } = session;
-
-      if (favoriteLineId) {
-        return powerUser(handlerInput, { favoriteLineId });
-      } else if (numVisits) {
-        return returningUser(handlerInput);
-      } else {
-        return firstTimeUser(handlerInput);
-      }
+      return firstTimeUser(handlerInput);
     },
   },
 ];
@@ -46,17 +36,17 @@ module.exports = [
 /************** FREESTANDING HANDLE FUNCS **************/
 
 function firstTimeUser({ responseBuilder }) {
-  const speech = welcome.firstTime.speech[0].ssml;
-  const reprompt = sample(welcome.returning.reprompt).ssml;
+  const speech =
+    welcome.firstTime.speech.ssml + rooms.dungeon.intro.speech.ssml;
+  const reprompt = rooms.reprompt[0].ssml;
 
   return simpleResponse(responseBuilder, { speech, reprompt });
 }
 
-function returningUser({ responseBuilder }) {
+function returningUser(handlerInput) {
   const speech = sample(welcome.returning.speech).ssml;
-  const reprompt = sample(welcome.returning.reprompt).ssml;
 
-  return simpleResponse(responseBuilder, { speech, reprompt });
+  return goToRoom(handlerInput, { speech });
 }
 
 function powerUser(handlerInput, { favoriteLineId }) {

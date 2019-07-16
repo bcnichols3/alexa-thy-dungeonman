@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'local';
 require('dotenv').config({path: '.env'});
 
 var debug   = require('debug')('Heads Up'),
-    app     = require('../app');
+    app     = require('../local/app');
 
 app.set('port', process.env.PORT || 3000);
 

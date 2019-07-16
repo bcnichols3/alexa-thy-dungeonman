@@ -18,6 +18,7 @@ const plugins = Plugins({
   scope: ["devDependencies"],
   replaceString: /^gulp(-|\.)/,
   lazy: false,
+  through2: require("through2")
 });
 
 /////////////////
@@ -77,7 +78,7 @@ gulp.task("get-skill-status", done => {
 });
 
 gulp.task("start-skill", done => {
-  const nodemon = plugins.nodemon({ script: "local/bin/www" });
+  const nodemon = plugins.nodemon({ script: "bin/www" });
 
   nodemon
     .on("readable", function() {

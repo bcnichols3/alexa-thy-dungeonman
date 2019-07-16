@@ -187,7 +187,7 @@ class Validator {
   slot(key, func) {
     const { requestEnvelope } = this.alexa;
     const slot = getSlot(requestEnvelope, key);
-    if (func) this.isValid[`SLOT ${key}`] = func(slot.value);
+    if (func) this.isValid[`SLOT ${key}`] = func(slot);
     else this.isValid[`SLOT ${key}`] = !!slot.value;
     return this;
   }

@@ -21,6 +21,16 @@ module.exports = [
     },
   },
   {
+    /** @param {"Yes, play again"} */
+    canHandle(handlerInput) {
+      return validator(handlerInput)
+        .state(state.GOODBYE)
+        .yesIntent()
+        .getValue();
+    },
+    handle(handlerInput) {},
+  },
+  {
     /** @param {"Yes, help me set up notifications"} */
     canHandle(handlerInput) {
       return validator(handlerInput)
