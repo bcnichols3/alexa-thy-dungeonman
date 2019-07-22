@@ -2,7 +2,7 @@ module.exports = {
   intro: {
     default: {
       ssml:
-        "<audio src=\"soundbank://soundlibrary/doors/doors_metal/metal_04\"/><p>Ye find yeeself in yon dungeon. Ye see a scroll. Behind ye scroll is a flask. Obvious exits are north south and dennis.</p>",
+        "<audio src=\"soundbank://soundlibrary/doors/doors_locker_doors/locker_doors_03\"/><p>Ye find yeeself in yon dungeon. Ye see a scroll. Behind ye scroll is a flask. Obvious exits are north south and dennis.</p>",
       altText:
         "Ye find yeself in yon dungeon. Ye see a scroll. Behind ye scroll is a flask. Obvious exits are north south and dennis.",
     },

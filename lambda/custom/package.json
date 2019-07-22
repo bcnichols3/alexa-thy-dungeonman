@@ -6,13 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Brian Nichols Griggs",
   "license": "ISC",
   "dependencies": {
     "ask-sdk": "^2.0.7",
     "ask-sdk-dynamodb-persistence-adapter": "^2.0.7",
     "ask-sdk-model": "^1.5.0",
     "aws-sdk": "^2.302.0",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
   }
 }
