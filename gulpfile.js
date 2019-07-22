@@ -29,7 +29,7 @@ Promise.promisifyAll(plugins.ngrok);
 
 gulp.task("start-ngrok", () => {
   return gulp
-    .src("./local.skill.json")
+    .src("./manifests/local.skill.json")
     .pipe(
       plugins.through2.obj(function(file, enc, cb) {
         const skill = JSON.parse(file.contents.toString());
@@ -52,12 +52,12 @@ gulp.task("start-ngrok", () => {
       })
     )
     .pipe(plugins.beautify({ indent_size: 2, wrap_line_length: 1 }))
-    .pipe(gulp.dest("./"));
+    .pipe(gulp.dest("./manifests"));
 });
 
 gulp.task("update-skill-local", done => {
   const { skill_id } = ask.deploy_settings.default;
-  const command = `ask api update-skill -s ${skill_id} -f local.skill.json -p personal`;
+  const command = `ask api update-skill -s ${skill_id} -f manifests/local.skill.json -p personal`;
   exec(command, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -78,7 +78,7 @@ gulp.task("get-skill-status", done => {
 });
 
 gulp.task("start-skill", done => {
-  const nodemon = plugins.nodemon({ script: "bin/www" });
+  const nodemon = plugins.nodemon({ script: "local/app.js" });
 
   nodemon
     .on("readable", function() {
@@ -142,7 +142,7 @@ gulp.task("upload-lambda-staging", done => {
 gulp.task("update-skill-staging", done => {
   const { skill_id } = ask.deploy_settings.staging;
 
-  const command = `ask api update-skill -s ${skill_id} -f staging.skill.json`;
+  const command = `ask api update-skill -s ${skill_id} -f manifests/staging.skill.json`;
   exec(command, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -164,7 +164,7 @@ gulp.task("update-model-staging", done => {
 gulp.task("get-skill-staging", done => {
   const { skill_id } = ask.deploy_settings.staging;
 
-  const command = `ask api get-skill -s ${skill_id} > staging.skill.json -p personal`;
+  const command = `ask api get-skill -s ${skill_id} > manifests/staging.skill.json -p personal`;
   exec(command, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -199,7 +199,7 @@ gulp.task("upload-lambda-production", done => {
 gulp.task("update-skill-production", done => {
   const { skill_id } = ask.deploy_settings.production;
 
-  const command = `ask api update-skill -s ${skill_id} -f production.skill.json -p personal`;
+  const command = `ask api update-skill -s ${skill_id} -f manifests/production.skill.json -p personal`;
   exec(command, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
@@ -221,7 +221,7 @@ gulp.task("update-model-production", done => {
 gulp.task("get-skill-production", done => {
   const { skill_id } = ask.deploy_settings.production;
 
-  const command = `ask api get-skill -s ${skill_id} > production.skill.json -p personal`;
+  const command = `ask api get-skill -s ${skill_id} > manifests/production.skill.json -p personal`;
   exec(command, function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
