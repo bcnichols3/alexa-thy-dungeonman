@@ -8,7 +8,6 @@ function createPrev({ requestEnvelope, attributesManager }, response = {}) {
   session.previous = {
     reprompt,
     state: session.state,
-    pointer: session.pointer,
   };
   attributesManager.setSessionAttributes(session);
 }

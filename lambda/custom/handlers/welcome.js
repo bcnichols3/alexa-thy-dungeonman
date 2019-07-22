@@ -1,15 +1,7 @@
-const sample = require("lodash/sample");
-
-const { state, newPersist } = require("../constants");
-const { welcome, rooms } = require("../responses");
-const {
-  simpleResponse,
-  compileTemplate,
-  validator,
-  getSlot,
-  addBodyTemplate,
-} = require("../helpers");
-const { giveAnnouncements, sayGoodbye } = require("./common");
+const { state, newSession } = require("../constants");
+const { welcome } = require("../responses");
+const { validator, updateSessionAttributes } = require("../helpers");
+const { goToRoom } = require("./common");
 
 /************** HANDLERS **************/
 
@@ -28,6 +20,10 @@ module.exports = [
         requestEnvelope,
       } = handlerInput;
 
+      updateSessionAttributes(attributesManager, {
+        ...newSession,
+      });
+
       return firstTimeUser(handlerInput);
     },
   },
@@ -35,20 +31,10 @@ module.exports = [
 
 /************** FREESTANDING HANDLE FUNCS **************/
 
-function firstTimeUser({ responseBuilder }) {
-  const speech =
-    welcome.firstTime.speech.ssml + rooms.dungeon.intro.speech.ssml;
-  const reprompt = rooms.reprompt[0].ssml;
-
-  return simpleResponse(responseBuilder, { speech, reprompt });
+function firstTimeUser(handlerInput) {
+  return goToRoom(handlerInput, { speech: welcome.firstTime.ssml });
 }
 
 function returningUser(handlerInput) {
-  const speech = sample(welcome.returning.speech).ssml;
-
-  return goToRoom(handlerInput, { speech });
-}
-
-function powerUser(handlerInput, { favoriteLineId }) {
-  return giveAnnouncements(handlerInput, { lineId: favoriteLineId });
+  return goToRoom(handlerInput, { speech: welcome.returning.ssml });
 }
