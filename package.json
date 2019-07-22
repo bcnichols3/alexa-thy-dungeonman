@@ -21,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/alexa-sdk": "^1.1.2",
     "ask-sdk": "^2.0.7",
     "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
@@ -34,10 +35,11 @@
     "gulp-load-plugins": "^1.5.0",
     "gulp-rename": "^1.2.2",
     "gulp-s3-upload": "^1.6.4",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.15",
     "ngrok": "^2.2.25",
     "nodemon": "^1.14.11",
     "prettier": "^1.18.2",
-    "through2": "^3.0.1"
+    "through2": "^3.0.1",
+    "typescript": "^3.5.3"
   }
 }

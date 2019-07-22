@@ -1,9 +1,16 @@
 module.exports = {
   intro: {
-    ssml:
-      "<p>You go north through yon corridor. You arrive at parapets. Ye see a rope. Obvious exits are south.</p>",
-    altText:
-      "You go north through yon corridor. You arrive at parapets. Ye see a rope. Obvious exits are south.",
+    default: {
+      ssml:
+        "<audio src=\"soundbank://soundlibrary/footsteps/stairs/stairs_01\"/><p>You go north through yon corridor. You arrive at parapets. Ye see a rope. Obvious exits are south.</p>",
+      altText:
+        "You go north through yon corridor. You arrive at parapets. Ye see a rope. Obvious exits are south.",
+    },
+    look: {
+      ssml: "<p>Well, they're parapets. This much we know for sure.</p>",
+      altText: "Well, they're parapets. This much we know for sure.",
+    },
+    with: {},
   },
   connections: {
     south: "dungeon",

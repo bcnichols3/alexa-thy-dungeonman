@@ -1,8 +1,6 @@
-const sample = require("lodash/sample");
-
-const { exception, goodbye } = require("../responses");
+const { goodbye } = require("../responses");
 const { validator, updateSessionAttributes } = require("../helpers");
-const { state } = require("../constants");
+const { state, newSession } = require("../constants");
 
 const { sayGoodbye, goToRoom } = require("./common");
 
@@ -32,8 +30,7 @@ module.exports = [
       const { attributesManager } = handlerInput;
 
       updateSessionAttributes(attributesManager, {
-        state: state.WELCOME,
-        curRoom: "dungeon",
+        ...newSession,
       });
 
       return goToRoom(handlerInput, {});

@@ -15,15 +15,12 @@ const { rooms, goodbye, play } = require("../responses");
 
 /************** FREESTANDING HANDLE FUNCS **************/
 
-function goToRoom(handlerInput, { speech = "" }) {
-  const { requestEnvelope, attributesManager, responseBuilder } = handlerInput;
+function goToRoom(handlerInput, { thing, room, speech = "" }) {
+  const { attributesManager, responseBuilder } = handlerInput;
 
-  const dirSlot = getSlot(requestEnvelope, "thing");
-  const curRoom = attributesManager.getSessionAttributes().curRoom || "dungeon";
+  const direction = thing;
 
-  const headedTo = dirSlot.id
-    ? rooms[curRoom].connections[dirSlot.id]
-    : "dungeon";
+  const headedTo = direction ? room.connections[direction] : "dungeon";
 
   if (!headedTo)
     return simpleResponse(responseBuilder, {
@@ -35,37 +32,30 @@ function goToRoom(handlerInput, { speech = "" }) {
   });
 
   return simpleResponse(responseBuilder, {
-    speech: speech + rooms[headedTo].intro.ssml,
+    speech: speech + rooms[headedTo].intro.default.ssml,
     reprompt: play.reprompt.ssml,
   });
 }
 
-function interact(handlerInput, { speech = "", action = "take" }) {
-  const { requestEnvelope, attributesManager, responseBuilder } = handlerInput;
-  const thingSlot = getSlot(requestEnvelope, "thing");
-
+function interact(handlerInput, { speech = "", action = "take", thing }) {
+  const { attributesManager, responseBuilder } = handlerInput;
   const session = attributesManager.getSessionAttributes();
 
-  const curRoom = session.curRoom || "dungeon";
-
-  const item =
-    rooms[curRoom].items[thingSlot.id] || rooms.global.items[thingSlot.id];
+  const item = determineItem(thing, session);
 
   if (!item || !item[action]) {
     return simpleResponse(responseBuilder, {
-      speech: play.invalid.look.ssml,
+      speech: play.invalid[action].ssml,
       reprompt: play.reprompt.ssml,
     });
   }
 
-  if (item[action].score) {
-    updateSessionAttributes(attributesManager, {
-      score: session.score + item.score,
-    });
-  }
+  updatePlayer(handlerInput, { thing, item, action });
 
   if (item[action].endsGame) {
-    return endGame(handlerInput, { speech: speech + item[action].ssml });
+    speech += item[action].ssml;
+    if (item[action].winsGame) speech += play.win.ssml;
+    return endGame(handlerInput, { speech });
   }
 
   return simpleResponse(responseBuilder, {
@@ -111,3 +101,28 @@ module.exports = {
   interact,
   sayGoodbye,
 };
+
+function determineItem(thing, { curRoom, inventory }) {
+  const doesPossessItem = inventory.includes(thing);
+
+  if (doesPossessItem) return rooms.inventory[thing];
+
+  return rooms[curRoom].items[thing] || rooms.global.items[thing] || null;
+}
+
+function updatePlayer({ attributesManager }, { thing, item, action }) {
+  const { inventory, score } = attributesManager.getSessionAttributes();
+  const doesPossessItem = inventory.includes(thing);
+
+  if (item[action].score !== undefined) {
+    updateSessionAttributes(attributesManager, {
+      score: score + item[action].score,
+    });
+  }
+
+  if (action === "take" && !doesPossessItem) {
+    updateSessionAttributes(attributesManager, {
+      inventory: inventory.concat([thing]),
+    });
+  }
+}

@@ -1,6 +1,6 @@
-const { state, newPersist } = require("../constants");
+const { state, newSession } = require("../constants");
 const { welcome } = require("../responses");
-const { validator } = require("../helpers");
+const { validator, updateSessionAttributes } = require("../helpers");
 const { goToRoom } = require("./common");
 
 /************** HANDLERS **************/
@@ -19,6 +19,10 @@ module.exports = [
         responseBuilder,
         requestEnvelope,
       } = handlerInput;
+
+      updateSessionAttributes(attributesManager, {
+        ...newSession,
+      });
 
       return firstTimeUser(handlerInput);
     },

@@ -216,6 +216,15 @@
                   "blade"
                 ]
               }
+            },
+            {
+              "id": "parapets",
+              "name": {
+                "value": "parapets",
+                "synonyms": [
+                  "parapet"
+                ]
+              }
             }
           ]
         }

@@ -11,5 +11,6 @@ module.exports = Object.freeze({
     curRoom: "dungeon",
     score: 0,
     state: "WELCOME",
+    inventory: [],
   },
 });

@@ -2,7 +2,7 @@ require("dotenv");
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const alexa = require("../lambda/custom/index.js");
+const alexa = require("../lambda/custom");
 const Promise = require("bluebird");
 
 alexaPromise = Promise.promisifyAll(alexa);

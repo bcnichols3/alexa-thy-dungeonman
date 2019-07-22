@@ -1,4 +1,4 @@
-const { play, exception } = require("../responses");
+const { play, rooms, exception } = require("../responses");
 const { validator, simpleResponse, getSlot } = require("../helpers");
 const { goToRoom, interact, endGame } = require("./common");
 
@@ -8,6 +8,7 @@ const actionsHandlerMap = {
   go: goToRoom,
   take: interact,
   look: interact,
+  give: interact,
   die(handlerInput) {
     return endGame(handlerInput, { speech: play.die.ssml });
   },
@@ -34,12 +35,44 @@ module.exports = [
         .getValue();
     },
     handle(handlerInput) {
-      const { requestEnvelope, responseBuilder } = handlerInput;
-      const actionSlot = getSlot(requestEnvelope, "action");
+      const {
+        requestEnvelope,
+        attributesManager,
+        responseBuilder,
+      } = handlerInput;
+      const { inventory, curRoom } = attributesManager.getSessionAttributes();
+      const room = rooms[curRoom];
 
-      const handler = actionsHandlerMap[actionSlot.id];
-      if (handler) return handler(handlerInput, {});
+      const action = getSlot(requestEnvelope, "action").id;
+      const thing = getSlot(requestEnvelope, "thing").id;
+
+      if (!thing && action === "look")
+        return examine(handlerInput, { inventory, room });
+
+
+      const handler = actionsHandlerMap[action];
+      if (handler) {
+        console.log("USING HANDLER MAP", action, thing);
+
+        return handler(handlerInput, { action, thing, room });
+      }
+
+      console.log("COULDN'T MATCH ACTION");
       return simpleResponse(responseBuilder, { speech: exception.error.ssml });
     },
   },
 ];
+
+function examine({ responseBuilder }, { inventory, room }) {
+  let speech = room.intro.look.ssml;
+
+  const { intro } = room;
+  const triggerItem = Object.keys(intro.with).find(item =>
+    inventory.includes(item)
+  );
+  if (triggerItem) speech = room.intro.with[triggerItem].ssml;
+  return simpleResponse(responseBuilder, {
+    speech,
+    reprompt: play.reprompt.ssml,
+  });
+}

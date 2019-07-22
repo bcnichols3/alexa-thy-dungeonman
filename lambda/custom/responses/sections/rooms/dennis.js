@@ -1,9 +1,16 @@
 module.exports = {
   intro: {
-    ssml:
-      "<p>Ye arrive at Dennis. He wears a sporty frock coat and a long jimberjam. He paces about nervously. Obvious exits are not dennis.</p>",
-    altText:
-      "Ye arrive at Dennis. He wears a sporty frock coat and a long jimberjam. He paces about nervously. Obvious exits are not dennis.",
+    default: {
+      ssml:
+        "<p>Ye arrive at Dennis. He wears a sporty frock coat and a long jimberjam. He paces about nervously. Obvious exits are not dennis.</p>",
+      altText:
+        "Ye arrive at Dennis. He wears a sporty frock coat and a long jimberjam. He paces about nervously. Obvious exits are not dennis.",
+    },
+    look: {
+      ssml: "<p>That jimberjam really makes the outfit.</p>",
+      altText: "That jimberjam really makes the outfit.",
+    },
+    with: {},
   },
   connections: {
     notDennis: "dungeon",
