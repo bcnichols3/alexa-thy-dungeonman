@@ -8,10 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vaynermedia/wait-wait-alexa"
+    "url": "https://github.com/bcnichols3/thy-dungeonman-alexa"
   },
   "scripts": {
     "start": "gulp start-local",
+    "build": "tsc",
     "deploy": "ask deploy",
     "process-audio": "gulp process-audio",
     "update-local": "gulp update-model-local",
@@ -20,11 +21,23 @@
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "app-module-path": "^2.2.0",
+    "ask-sdk-core": "^2.6.0",
+    "ask-sdk-dynamodb-persistence-adapter": "^2.0.7",
+    "ask-sdk-model": "^1.5.0",
+    "aws-sdk": "^2.497.0",
+    "lodash": "^4.17.15",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
   "devDependencies": {
     "@types/alexa-sdk": "^1.1.2",
-    "ask-sdk": "^2.0.7",
+    "@types/lodash": "^4.14.136",
+    "@types/node": "^12.6.8",
     "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
+    "bunyan": "^1.8.12",
     "dotenv": "^5.0.1",
     "express": "^4.17.1",
     "gulp": "4.0",
@@ -32,12 +45,11 @@
     "gulp-changed": "^3.1.0",
     "gulp-fluent-ffmpeg": "^1.0.2",
     "gulp-json-transform": "^0.4.2",
-    "gulp-load-plugins": "^1.5.0",
+    "gulp-load-plugins": "^1.6.0",
     "gulp-rename": "^1.2.2",
     "gulp-s3-upload": "^1.6.4",
-    "lodash": "^4.17.15",
     "ngrok": "^2.2.25",
-    "nodemon": "^1.14.11",
+    "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "through2": "^3.0.1",
     "typescript": "^3.5.3"

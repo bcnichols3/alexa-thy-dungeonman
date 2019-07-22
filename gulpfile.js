@@ -1,7 +1,5 @@
 // GULP FILE
 const gulp = require("gulp");
-const _ = require("lodash");
-const util = require("util");
 const Plugins = require("gulp-load-plugins");
 const { exec } = require("child_process");
 const fs = require("fs");
@@ -67,7 +65,6 @@ gulp.task("update-skill-local", done => {
 
 gulp.task("get-skill-status", done => {
   const { skill_id } = ask.deploy_settings.default;
-  // const locale = 'en-US';
   const command = `ask api get-skill-status -s ${skill_id} -p personal`;
 
   exec(command, function(err, stdout, stderr) {
