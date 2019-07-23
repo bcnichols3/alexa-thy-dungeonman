@@ -2,7 +2,7 @@ require("dotenv").config({ path: ".env" });
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const alexa = require("../lambda/custom");
+const alexa = require("../build");
 const Promise = require("bluebird");
 
 alexaPromise = Promise.promisifyAll(alexa);
@@ -25,6 +25,6 @@ app.listen(PORT, () => {
   console.log(
     `Express server listening on port ${PORT}`,
     `\nALEXA SKILL ID: ${process.env.ALEXA_APP_ID}`,
-    `\nDYNAMO TABLE NAME: ${process.env.DYNAMO_TABLE_NAME}`,
+    `\nDYNAMO TABLE NAME: ${process.env.DYNAMO_TABLE_NAME}`
   );
 });
