@@ -239,7 +239,7 @@ gulp.task(
 // AUDIO //
 ///////////
 
-gulp.task("process-audio", done => {
+gulp.task("convert-audio", done => {
   // transcode WAV files to mp3
   return gulp
     .src("./assets/audio/src/**/*.@(WAV|wav|ogg|mp3)")
@@ -262,7 +262,7 @@ gulp.task("upload-audio", done => {
   return gulp.src("./assets/audio/dist/**/*.mp3").pipe(
     s3(
       {
-        Bucket: "wait-wait",
+        Bucket: "shining-advance",
         ACL: "public-read",
         keyTransform: function(filename) {
           return "audio/" + filename;
@@ -275,6 +275,6 @@ gulp.task("upload-audio", done => {
   );
 });
 
-gulp.task("audio", done => {
-  plugins.runSequence("process-audio", "upload-audio", done);
+gulp.task("process-audio", done => {
+  plugins.runSequence("convert-audio", "upload-audio", done);
 });

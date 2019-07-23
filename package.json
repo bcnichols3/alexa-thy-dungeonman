@@ -1,11 +1,8 @@
 {
-  "name": "thy-dungeonman-dev",
+  "name": "thy-dungeonman-alexa",
   "version": "1.0.0",
   "description": "Thy Dungeonman on Alexa",
-  "main": "gulpfile.js",
-  "directories": {
-    "test": "tests"
-  },
+  "main": "src/index.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/bcnichols3/thy-dungeonman-alexa"
@@ -14,12 +11,16 @@
     "start": "gulp start-local",
     "build": "tsc",
     "deploy": "ask deploy",
-    "process-audio": "gulp process-audio",
-    "update-local": "gulp update-model-local",
-    "test": "node tests",
+    "convert-audio": "gulp convert-audio",
+    "update-model": "gulp update-model-local",
+    "test-features": "node tests",
     "lint": "prettier --write \"./**/*.{ts,tsx,js,json}\" \"!./build/**\""
   },
-  "author": "",
+  "author": {
+    "name" : "Brian Nichols Griggs",
+    "email" : "bcnichols3@gmail.com",
+    "url" : "https://bcnichols.com/"
+  },
   "license": "ISC",
   "dependencies": {
     "app-module-path": "^2.2.0",
