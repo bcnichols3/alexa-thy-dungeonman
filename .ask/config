@@ -5,7 +5,7 @@
       "was_cloned": false
     },
     "production": {
-      "skill_id": "amzn1.ask.skill.6dfd0199-e56b-4a71-877f-11f28af44677",
+      "skill_id": "",
       "was_cloned": false,
       "resources": {
         "manifest": {
@@ -18,8 +18,8 @@
         },
         "lambda": [
           {
-            "arn": "arn:aws:lambda:us-east-1:722472928377:function:ask-mta-alexa-production",
-            "functionName": "arn:aws:lambda:us-east-1:722472928377:function:ask-mta-alexa-production",
+            "arn": "",
+            "functionName": "",
             "awsRegion": "us-east-1",
             "alexaUsage": [
               "custom/default"
