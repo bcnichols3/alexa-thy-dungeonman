@@ -284,7 +284,8 @@ function runSingleTest(myLineArray, currentLine, sa) {
     request = {
       type: requestType,
       locale: locale,
-      requestId: "amzn1.echo-api.request.90e15a67-dd2d-4cf2-93bd-7a1234d0139f",
+      requestId:
+        "amzn1.echo-api.request.ts.90e15a67-dd2d-4cf2-93bd-7a1234d0139f",
       shouldLinkResultBeReturned: false,
       timestamp: eventTime, // options.timestamp
     };
@@ -365,7 +366,8 @@ function processArray(arr, cb) {
     let req = {
       type: "IntentRequest",
       timestamp: eventTime, // options.timestamp
-      requestId: "amzn1.echo-api.request.90e15a67-dd2d-4cf2-93bd-7a1234d0139f",
+      requestId:
+        "amzn1.echo-api.request.ts.90e15a67-dd2d-4cf2-93bd-7a1234d0139f",
       shouldLinkResultBeReturned: false,
       intent: {
         name: Intent,

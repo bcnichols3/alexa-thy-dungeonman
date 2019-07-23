@@ -5,8 +5,8 @@ import { Session } from "shared/types/attributes";
 import StateResponses from "responses/states";
 import RoomResponses from "responses/rooms";
 import { endGame, goToRoom, interact } from "handlers/common";
-import { getSlot, simpleResponse } from "helpers/manipulators";
-import validator from "helpers/validator";
+import { getSlot, simpleResponse } from "shared/manipulators";
+import validator from "shared/validator";
 
 /************** HANDLERS **************/
 

@@ -1,6 +1,6 @@
 import { CustomSkillErrorHandler } from "ask-sdk-core/dist/dispatcher/error/handler/CustomSkillErrorHandler";
 import exception from "responses/states/exception";
-import { simpleResponse } from "helpers/manipulators";
+import { simpleResponse } from "shared/manipulators";
 import { ResponseBuilder } from "ask-sdk-core";
 
 /************** HANDLERS **************/

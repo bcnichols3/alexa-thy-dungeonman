@@ -1,5 +1,5 @@
 import { CustomHandler } from "shared/types/handlers";
-import { initialSesson, Session } from "shared/types/attributes";
+import { initialSession, Session } from "shared/types/attributes";
 import rooms from "responses/rooms";
 import {
   ActionTypes,
@@ -14,20 +14,13 @@ import globalDialogs from "responses/inventories/global";
 import { AttributesManager } from "ask-sdk-core";
 import stateResponses from "responses/states";
 import invalid from "responses/inventories/invalid";
-import { simpleResponse, updateSessionAttributes } from "helpers/manipulators";
-
-/**
-	Common 'handlers' are funcs that can be called inside actual handler
-	functions, and are passed two arguments:
-*/
-
-/************** FREESTANDING HANDLE FUNCS **************/
+import { simpleResponse, updateSessionAttributes } from "shared/manipulators";
 
 export const startNewGame: CustomHandler = (handlerInput, { speech }) => {
   const { attributesManager } = handlerInput;
 
   updateSessionAttributes(attributesManager, {
-    ...initialSesson,
+    ...initialSession,
   });
 
   return goToRoom(handlerInput, {

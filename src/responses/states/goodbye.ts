@@ -10,8 +10,8 @@ const goodbye: DialogMap = {
     altText: "Fine, let's playeth again.",
   },
   final: {
-    ssml: "<p>Fare the well.</p>",
-    altText: "Fare the well.",
+    ssml: "<p>Fare thee well.</p>",
+    altText: "Fare thee well.",
   },
 };
 

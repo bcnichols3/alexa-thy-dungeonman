@@ -2,7 +2,8 @@ import { RequestHandler, HandlerInput } from "ask-sdk-core";
 import { CustomHandler } from "shared/types/handlers";
 import welcomeResponses from "responses/states/welcome";
 import { startNewGame } from "handlers/common";
-import validator from "helpers/validator";
+import validator from "shared/validator";
+import { Session } from "shared/types/attributes";
 
 /************** HANDLERS **************/
 
@@ -13,7 +14,11 @@ const welcomeHandler: RequestHandler = {
       .getValue();
   },
   handle(handlerInput: HandlerInput) {
-    return firstTimeUser(handlerInput, {});
+    const { attributesManager } = handlerInput;
+    const { visits } = attributesManager.getSessionAttributes() as Session;
+
+    if (visits > 0) return returningUser(handlerInput, {});
+    else return firstTimeUser(handlerInput, {});
   },
 };
 
@@ -27,6 +32,8 @@ const firstTimeUser: CustomHandler = handlerInput => {
   });
 };
 
-// function returningUser(handlerInput) {
-//   return goToRoom(handlerInput, { speech: welcome.returning.ssml });
-// }
+const returningUser: CustomHandler = handlerInput => {
+  return startNewGame(handlerInput, {
+    speech: welcomeResponses.returning.ssml,
+  });
+};

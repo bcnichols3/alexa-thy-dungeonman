@@ -6,8 +6,8 @@ const exception: DialogMap = {
     altText: '<p>Say something like, "go south," or, "go north."</p>',
   },
   startOver: {
-    ssml: "<p>Ok, let's start from the beginning.</p>",
-    altText: "Ok, let's start from the beginning.",
+    ssml: "<p>We begin again the hero's adventure.</p>",
+    altText: "We begin again the hero's adventure.",
   },
   repeat: {
     ssml: "<p>Ok, listen up this time bucko.</p>",
