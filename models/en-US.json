@@ -292,6 +292,16 @@
           ]
         },
         {
+          "name": "AMAZON.RepeatIntent",
+          "samples": [
+            "canst thou repeat that",
+            "verily I did not hear thee",
+            "I did not hear the",
+            "thou must speaketh up",
+            "thou must speak up"
+          ]
+        },
+        {
           "name": "AMAZON.CancelIntent"
         },
         {

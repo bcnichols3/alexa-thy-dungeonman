@@ -2,8 +2,9 @@ import { RequestHandler } from "ask-sdk-core";
 import exception from "responses/states/exception";
 import { startNewGame } from "handlers/common";
 import { StateTypes } from "shared/types/attributes";
-import validator from "helpers/validator";
-import { simpleResponse, updateSessionAttributes } from "helpers/manipulators";
+import validator from "shared/validator";
+import { simpleResponse, updateSessionAttributes } from "shared/manipulators";
+import play from "responses/states/play";
 
 /************** HANDLERS **************/
 
@@ -17,6 +18,7 @@ const helpHandler: RequestHandler = {
     updateSessionAttributes(attributesManager, { state: "WELCOME" });
     return simpleResponse(responseBuilder, {
       speech: exception.help.ssml,
+      reprompt: play.reprompt.ssml,
     });
   },
 };

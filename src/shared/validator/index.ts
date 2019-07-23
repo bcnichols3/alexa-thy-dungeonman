@@ -1,6 +1,6 @@
 import { HandlerInput } from "ask-sdk-core";
-import errMsg from "helpers/validator/errorMessages";
-import { getSlot } from "helpers/manipulators";
+import errMsg from "shared/validator/errorMessages";
+import { getSlot } from "shared/manipulators";
 import { IntentRequest } from "ask-sdk-model";
 
 type Options = {

@@ -1,8 +1,9 @@
 import { RequestHandler } from "ask-sdk-core";
-import { initialSesson, StateTypes } from "shared/types/attributes";
+import { initialSession, StateTypes } from "shared/types/attributes";
 import { goToRoom, sayGoodbye } from "handlers/common";
-import { updateSessionAttributes } from "helpers/manipulators";
-import validator from "helpers/validator";
+import { updateSessionAttributes } from "shared/manipulators";
+import util from "util";
+import validator from "shared/validator";
 import goodbye from "responses/states/goodbye";
 
 /************** HANDLERS **************/
@@ -29,7 +30,7 @@ const yesPlayAgainHandler: RequestHandler = {
     const { attributesManager } = handlerInput;
 
     updateSessionAttributes(attributesManager, {
-      ...initialSesson,
+      ...initialSession,
     });
 
     return goToRoom(handlerInput, {
@@ -57,7 +58,12 @@ const sessionEndHandler: RequestHandler = {
       .getValue();
   },
   handle({ requestEnvelope, responseBuilder }) {
-    console.log(`Session ending: ${requestEnvelope.request}`);
+    console.log(
+      `Session ending: ${util.inspect(requestEnvelope.request, {
+        colors: true,
+        depth: 3,
+      })}`
+    );
 
     return responseBuilder.getResponse();
   },
