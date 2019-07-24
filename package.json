@@ -28,10 +28,7 @@
     "ask-sdk-core": "^2.6.0",
     "ask-sdk-dynamodb-persistence-adapter": "^2.0.7",
     "ask-sdk-model": "^1.5.0",
-    "aws-sdk": "^2.497.0",
-    "lodash": "^4.17.15",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "aws-sdk": "^2.497.0"
   },
   "devDependencies": {
     "@types/alexa-sdk": "^1.1.2",
