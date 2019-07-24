@@ -1,0 +1,5 @@
+LaunchRequest
+ActionIntent action="take" thing="scroll"
+ActionIntent action="take" thing="flask"
+ActionIntent action="take" thing="flask"
+AMAZON.NoIntent

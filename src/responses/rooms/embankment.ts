@@ -1,6 +1,4 @@
-import { Room } from "shared/types/rooms";
-
-const embankment: Room = {
+const embankment = {
   intro: {
     ssml:
       '<audio src="soundbank://soundlibrary/footsteps/sand_gravel_mud/sand_gravel_09"/><p>You head south to an enbankment. Or maybe a chasm. You can\'t decide which. Anyway, ye spies a trinket. Obvious exits are north.</p>',

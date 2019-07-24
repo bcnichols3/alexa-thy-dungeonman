@@ -7,10 +7,10 @@
 const fs = require("fs");
 const path = require("path");
 
-const SourceCodeFile = "../lambda/custom/index.js";
+const SourceCodeFile = "../build";
 const handlerName = "handler"; //'lambda_handler'
 
-let MyDialog = "./dialogs/default.txt";
+let MyDialog = path.resolve(__dirname, "./dialogs/takeYeFlask.txt");
 
 if (process.argv[2]) {
   MyDialog = path.resolve(__dirname, "./dialogs/" + process.argv[2]);

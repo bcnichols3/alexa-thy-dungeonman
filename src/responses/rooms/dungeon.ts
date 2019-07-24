@@ -1,6 +1,4 @@
-import { Room } from "shared/types/rooms";
-
-const dungeon: Room = {
+const dungeon = {
   intro: {
     ssml:
       '<audio src="soundbank://soundlibrary/doors/doors_locker_doors/locker_doors_03"/><p>Ye find yeeself in yon dungeon. Ye see a scroll. Behind ye scroll is a flask. Obvious exits are north south and dennis.</p>',

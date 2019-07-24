@@ -13,13 +13,14 @@
     "deploy": "ask deploy",
     "convert-audio": "gulp convert-audio",
     "update-model": "gulp update-model-local",
+    "test-units": "jest",
     "test-features": "node tests",
     "lint": "prettier --write \"./**/*.{ts,tsx,js,json}\" \"!./build/**\""
   },
   "author": {
-    "name" : "Brian Nichols Griggs",
-    "email" : "bcnichols3@gmail.com",
-    "url" : "https://bcnichols.com/"
+    "name": "Brian Nichols Griggs",
+    "email": "bcnichols3@gmail.com",
+    "url": "https://bcnichols.com/"
   },
   "license": "ISC",
   "dependencies": {
@@ -34,11 +35,16 @@
   },
   "devDependencies": {
     "@types/alexa-sdk": "^1.1.2",
+    "@types/chai": "^4.1.7",
+    "@types/chai-things": "0.0.33",
+    "@types/jest": "^24.0.15",
     "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.8",
     "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
     "bunyan": "^1.8.12",
+    "chai": "^4.2.0",
+    "chai-things": "^0.2.0",
     "dotenv": "^5.0.1",
     "express": "^4.17.1",
     "gulp": "4.0",
@@ -49,10 +55,12 @@
     "gulp-load-plugins": "^1.6.0",
     "gulp-rename": "^1.2.2",
     "gulp-s3-upload": "^1.6.4",
+    "jest": "^24.8.0",
     "ngrok": "^2.2.25",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "through2": "^3.0.1",
+    "ts-jest": "^24.0.2",
     "typescript": "^3.5.3"
   }
 }
