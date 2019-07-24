@@ -3,19 +3,18 @@ import {
   DirectionTypes,
   ItemTypes,
   RoomTypes,
-  ThingTypes,
 } from "shared/types/slots";
 import { Dialog } from "shared/types/dialogs";
 
 export interface ActionDialog extends Dialog {
-  validTargets?: ThingTypes[];
+  trigger?: ItemTypes;
   score?: number;
   endsGame?: boolean;
   winsGame?: boolean;
 }
 
 export type ActionDialogMap = {
-  [Key in ActionTypes]?: ActionDialog;
+  [Key in ActionTypes]?: ActionDialog[];
 };
 
 export type Inventory = {
@@ -23,13 +22,7 @@ export type Inventory = {
 };
 
 export type Room = {
-  intro: {
-    default: Dialog;
-    look: Dialog;
-    with: {
-      [Key in ItemTypes]?: Dialog;
-    };
-  };
+  intro: Dialog;
   connections: {
     [Key in DirectionTypes]?: RoomTypes;
   };

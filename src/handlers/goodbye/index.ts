@@ -1,12 +1,10 @@
 import { RequestHandler } from "ask-sdk-core";
-import { initialSession, StateTypes } from "shared/types/attributes";
-import { goToRoom, sayGoodbye } from "handlers/common";
-import { updateSessionAttributes } from "shared/manipulators";
+import { StateTypes } from "shared/types/attributes";
 import util from "util";
 import validator from "shared/validator";
-import goodbye from "responses/states/goodbye";
-
-/************** HANDLERS **************/
+import sayGoodbye from "handlers/goodbye/sayGoodbye";
+import startNewGame from "handlers/play/startNewGame";
+import exceptionResponses from "responses/states/exception";
 
 const stopHandler: RequestHandler = {
   canHandle(handlerInput) {
@@ -15,7 +13,7 @@ const stopHandler: RequestHandler = {
       .getValue();
   },
   handle(handlerInput) {
-    return sayGoodbye(handlerInput, {});
+    return sayGoodbye(handlerInput);
   },
 };
 
@@ -27,43 +25,39 @@ const yesPlayAgainHandler: RequestHandler = {
       .getValue();
   },
   handle(handlerInput) {
-    const { attributesManager } = handlerInput;
-
-    updateSessionAttributes(attributesManager, {
-      ...initialSession,
-    });
-
-    return goToRoom(handlerInput, {
-      speech: goodbye.playAgain.ssml,
+    return startNewGame(handlerInput, {
+      speech: exceptionResponses.startOver.ssml,
     });
   },
 };
 
 const doNotPlayAgainHandler: RequestHandler = {
   canHandle(handlerInput) {
-    return validator<StateTypes>(handlerInput)
+    return validator<StateTypes>(handlerInput, { log: true })
       .state("GOODBYE")
       .noIntent()
       .getValue();
   },
   handle(handlerInput) {
-    return sayGoodbye(handlerInput, {});
+    return sayGoodbye(handlerInput);
   },
 };
 
-const sessionEndHandler: RequestHandler = {
+const sessionEndedHandler: RequestHandler = {
   canHandle(handlerInput) {
     return validator(handlerInput)
       .sessionEndedRequest()
       .getValue();
   },
   handle({ requestEnvelope, responseBuilder }) {
-    console.log(
-      `Session ending: ${util.inspect(requestEnvelope.request, {
-        colors: true,
-        depth: 3,
-      })}`
-    );
+    if (process.env.NODE_ENV === "local") {
+      console.log(
+        `Session ending: ${util.inspect(requestEnvelope.request, {
+          colors: true,
+          depth: 3,
+        })}`
+      );
+    }
 
     return responseBuilder.getResponse();
   },
@@ -73,5 +67,5 @@ export default [
   stopHandler,
   yesPlayAgainHandler,
   doNotPlayAgainHandler,
-  sessionEndHandler,
+  sessionEndedHandler,
 ];
