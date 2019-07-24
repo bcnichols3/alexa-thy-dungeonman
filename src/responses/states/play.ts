@@ -1,12 +1,9 @@
-import { ActionDialog } from "shared/types/rooms";
-
-const play: { [Key: string]: ActionDialog } = {
+const play = {
   reprompt: {
-    ssml: "What wouldst thou do?",
+    ssml: "<p>What wouldst thou do?</p>",
     altText: "What wouldst thou deau?",
   },
   die: {
-    score: -100,
     ssml: "<p>That wasn't very smart.</p>",
     altText: "That wasn't very smart.",
   },

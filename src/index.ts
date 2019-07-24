@@ -8,14 +8,14 @@ import play from "handlers/play";
 import goodbye from "handlers/goodbye";
 import exception from "handlers/exception";
 import error from "handlers/error";
-import requestInterceptors from "interceptors/request";
-import responseInterceptors from "interceptors/response";
+import request from "interceptors/request";
+import response from "interceptors/response";
 
 exports.handler = SkillBuilders.custom()
   .addRequestHandlers(...welcome, ...play, ...goodbye, ...exception)
   .addErrorHandlers(...error)
-  .addRequestInterceptors(...requestInterceptors)
-  .addResponseInterceptors(...responseInterceptors)
+  .addRequestInterceptors(...request)
+  .addResponseInterceptors(...response)
   .withPersistenceAdapter(
     new DynamoDbPersistenceAdapter({
       tableName: process.env.DYNAMO_TABLE_NAME || "Thy_Dungeonman",

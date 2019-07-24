@@ -5,14 +5,15 @@ export type StateTypes = typeof States[number];
 
 export type Persist = {
   visits: number;
+  curRoom: RoomTypes;
+  inventory: ItemTypes[];
 };
 
 export interface SessionExclusive {
   state: StateTypes;
-  curRoom: RoomTypes;
   score: number;
-  inventory: ItemTypes[];
   previous: {
+    speech: string;
     reprompt: string;
     state: StateTypes;
   };
@@ -22,15 +23,16 @@ export interface Session extends SessionExclusive, Persist {}
 
 export const initialPersist: Persist = {
   visits: 0,
+  curRoom: "dungeon",
+  inventory: [],
 };
 
 export const initialSession: SessionExclusive = {
-  state: "PLAY",
-  curRoom: "dungeon",
+  state: "WELCOME",
   score: 0,
-  inventory: [],
   previous: {
+    speech: "",
     reprompt: "",
-    state: "PLAY",
+    state: "WELCOME",
   },
 };

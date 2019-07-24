@@ -7,19 +7,13 @@ declare module "ask-sdk-model" {
 import { Session } from "shared/types/attributes";
 import { ResponseBuilder, AttributesManager } from "ask-sdk-core";
 import { IntentRequest, RequestEnvelope, FixedSlot } from "ask-sdk-model";
-import template from "lodash/template";
-
-export function compileTemplate(strTemplate: string, vars: {}) {
-  const tpl = template(strTemplate);
-  return tpl(vars);
-}
 
 export function updateSessionAttributes(
   attributesManager: AttributesManager,
-  obj: Partial<Session>
+  newSession: Partial<Session>
 ) {
   const session = attributesManager.getSessionAttributes();
-  attributesManager.setSessionAttributes(Object.assign(session, obj));
+  attributesManager.setSessionAttributes(Object.assign(session, newSession));
 }
 
 export function createPrompt(
@@ -28,14 +22,6 @@ export function createPrompt(
   shouldCombine = true
 ) {
   return { speech: shouldCombine ? speech + reprompt : speech, reprompt };
-}
-
-export function createList(list: string[], andOr = "and") {
-  if (list.length === 1) return list[0];
-
-  const newList = list.slice(0, list.length - 2);
-  newList.push(`${andOr} ${list[list.length - 1]}`);
-  return newList.join(", ");
 }
 
 type ResolvedSlot = {

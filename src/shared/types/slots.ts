@@ -23,20 +23,19 @@ export const Directions = [
 ] as const;
 export type DirectionTypes = typeof Directions[number];
 
+export const Rooms = ["dennis", "dungeon", "embankment", "parapets"] as const;
+export type RoomTypes = typeof Rooms[number];
+
 export const Items = [
-  "dennis",
+  ...Rooms,
   "flask",
   "scroll",
   "trinket",
   "jimberjam",
   "rope",
   "dagger",
-  "parapets",
 ] as const;
 export type ItemTypes = typeof Items[number];
 
-export const Rooms = ["dennis", "dungeon", "embankment", "parapets"] as const;
-export type RoomTypes = typeof Rooms[number];
-
-export const Things = [...Actions, ...Items, ...Directions, ...Rooms] as const;
+export const Things = [...Items, ...Directions] as const;
 export type ThingTypes = typeof Things[number];
