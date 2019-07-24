@@ -1,9 +1,9 @@
-// GULP FILE
 const gulp = require("gulp");
 const Plugins = require("gulp-load-plugins");
 const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const nodemonConfig = require("./nodemon.json");
 const ask = JSON.parse(
   fs.readFileSync(path.join(__dirname, "/.ask/config"), "utf8")
 );
@@ -12,18 +12,31 @@ const Promise = require("bluebird");
 const plugins = Plugins({
   DEBUG: false,
   camelize: true,
-  pattern: ["*"],
+  pattern: ["gulp-*"],
   scope: ["devDependencies"],
   replaceString: /^gulp(-|\.)/,
   lazy: false,
-  through2: require("through2"),
 });
+
+plugins.ngrok = require("ngrok");
+plugins.through2 = require("through2");
+plugins.bunyan = require("bunyan");
+
+const tsProject = plugins.typescript.createProject("tsconfig.json");
 
 /////////////////
 // RUN LOCALLY //
 /////////////////
 
 Promise.promisifyAll(plugins.ngrok);
+
+gulp.task("tsc", function() {
+  console.log("rebuilding typescript");
+  return tsProject
+    .src()
+    .pipe(tsProject())
+    .js.pipe(gulp.dest("build"));
+});
 
 gulp.task("start-ngrok", () => {
   return gulp
@@ -75,7 +88,7 @@ gulp.task("get-skill-status", done => {
 });
 
 gulp.task("start-skill", done => {
-  const nodemon = plugins.nodemon({ script: "local/app.js" });
+  const nodemon = plugins.nodemon({ ...nodemonConfig, done });
 
   nodemon
     .on("readable", function() {
@@ -93,12 +106,6 @@ gulp.task("start-skill", done => {
 
       this.stdout.pipe(bunyan.stdin);
       this.stderr.pipe(bunyan.stdin);
-    })
-    .on("restart", function() {
-      console.log("restarted!");
-    })
-    .on("crash", () => {
-      nodemon.emit("restart", 10);
     })
     .on("quit", () => {
       done();
@@ -119,63 +126,6 @@ gulp.task("update-model-local", done => {
 gulp.task(
   "start-local",
   gulp.series("start-ngrok", "update-skill-local", "start-skill")
-);
-
-/////////////
-// STAGING //
-/////////////
-
-gulp.task("upload-lambda-staging", done => {
-  const { functionName } = ask.deploy_settings.staging.resources.lambda[0];
-
-  const command = `ask lambda upload -f ${functionName} -s ./lambda/custom/ -p personal`;
-  exec(command, function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    done(err);
-  });
-});
-
-gulp.task("update-skill-staging", done => {
-  const { skill_id } = ask.deploy_settings.staging;
-
-  const command = `ask api update-skill -s ${skill_id} -f manifests/staging.skill.json`;
-  exec(command, function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    done(err);
-  });
-});
-
-gulp.task("update-model-staging", done => {
-  const { skill_id } = ask.deploy_settings.staging;
-
-  const command = `ask api update-model -s ${skill_id} -f models/en-US.json -l en-US -p personal`;
-  exec(command, function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    done(err);
-  });
-});
-
-gulp.task("get-skill-staging", done => {
-  const { skill_id } = ask.deploy_settings.staging;
-
-  const command = `ask api get-skill -s ${skill_id} > manifests/staging.skill.json -p personal`;
-  exec(command, function(err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    done(err);
-  });
-});
-
-gulp.task(
-  "deploy-staging",
-  gulp.series(
-    "upload-lambda-staging",
-    "update-skill-staging",
-    "update-model-staging"
-  )
 );
 
 ////////////////
@@ -240,7 +190,6 @@ gulp.task(
 ///////////
 
 gulp.task("convert-audio", done => {
-  // transcode WAV files to mp3
   return gulp
     .src("./assets/audio/src/**/*.@(WAV|wav|ogg|mp3)")
     .pipe(plugins.changed("./assets/audio/dist"))
@@ -275,6 +224,4 @@ gulp.task("upload-audio", done => {
   );
 });
 
-gulp.task("process-audio", done => {
-  plugins.runSequence("convert-audio", "upload-audio", done);
-});
+gulp.task("process-audio", gulp.series("convert-audio", "upload-audio"));

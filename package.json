@@ -10,12 +10,14 @@
   "scripts": {
     "start": "gulp start-local",
     "build": "tsc",
+    "test": "npm run lint-check && npm run test-units && npm run test-features",
     "deploy": "ask deploy",
     "convert-audio": "gulp convert-audio",
     "update-model": "gulp update-model-local",
     "test-units": "jest",
-    "test-features": "node tests",
-    "lint": "prettier --write \"./**/*.{ts,tsx,js,json}\" \"!./build/**\""
+    "test-features": "node tests/testflow.js",
+    "lint": "prettier --write \"./**/*.{ts,tsx,js,json}\" \"!./build/**\"",
+    "lint-check": "prettier --check \"./**/*.{ts,tsx,js,json}\" \"!./build/**\""
   },
   "author": {
     "name": "Brian Nichols Griggs",
@@ -50,14 +52,17 @@
     "gulp-fluent-ffmpeg": "^2.0.0",
     "gulp-json-transform": "^0.4.2",
     "gulp-load-plugins": "^1.6.0",
+    "gulp-nodemon": "^2.4.2",
     "gulp-rename": "^1.2.2",
     "gulp-s3-upload": "^1.6.4",
+    "gulp-typescript": "^5.0.1",
     "jest": "^24.8.0",
     "ngrok": "^2.2.25",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "through2": "^3.0.1",
     "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   }
 }
