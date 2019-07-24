@@ -6,10 +6,10 @@ import embankment from "responses/rooms/embankment";
 import parapets from "responses/rooms/parapets";
 
 const rooms: { [Key in RoomTypes]: Room } = {
-  dennis,
-  dungeon,
-  embankment,
-  parapets,
+  dennis: dennis as Room,
+  dungeon: dungeon as Room,
+  embankment: embankment as Room,
+  parapets: parapets as Room,
 };
 
 export default rooms;

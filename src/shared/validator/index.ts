@@ -7,7 +7,7 @@ type Options = {
   log: boolean;
 };
 
-class Validator<S> {
+export class Validator<S> {
   alexa: HandlerInput;
   log: boolean;
   isValid: {

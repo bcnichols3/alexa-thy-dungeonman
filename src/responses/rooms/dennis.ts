@@ -1,6 +1,4 @@
-import { Room } from "shared/types/rooms";
-
-const dennis: Room = {
+const dennis = {
   intro: {
     ssml:
       '<audio src="https://shining-advance.s3.amazonaws.com/audio/hello.mp3"/><p>Ye arrive at Dennis. He wears a sporty frock coat and a long jimberjam. He paces about nervously. Obvious exits are not dennis.</p>',

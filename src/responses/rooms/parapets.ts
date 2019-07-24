@@ -1,6 +1,4 @@
-import { Room } from "shared/types/rooms";
-
-const parapets: Room = {
+const parapets = {
   intro: {
     ssml:
       '<audio src="soundbank://soundlibrary/footsteps/stairs/stairs_01"/><p>You go north through yon corridor. You arrive at parapets. Ye see a rope. Obvious exits are south.</p>',

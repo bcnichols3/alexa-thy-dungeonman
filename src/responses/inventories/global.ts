@@ -1,6 +1,4 @@
-import { Inventory } from "shared/types/rooms";
-
-const Global: Inventory = {
+const Global = {
   dagger: {
     take: [
       {

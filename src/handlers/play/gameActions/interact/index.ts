@@ -1,13 +1,11 @@
 import { CustomHandler, PropsMaker } from "shared/types/handlers";
 import { Session } from "shared/types/attributes";
-import { ActionTypes, Items, ItemTypes, RoomTypes } from "shared/types/slots";
+import { ActionTypes, ItemTypes } from "shared/types/slots";
 import { simpleResponse, updateSessionAttributes } from "shared/manipulators";
 import * as stateResponses from "responses/states";
-import inventoryDialogs from "responses/inventories/personal";
-import roomResponses from "responses/rooms";
-import globalDialogs from "responses/inventories/global";
-import { ActionDialog } from "shared/types/rooms";
 import endGame from "handlers/play/endGame";
+import determineActionDialog from "handlers/play/gameActions/interact/determineActionDialog";
+import makeNewSession from "handlers/play/gameActions/interact/makeNewSession";
 
 type Props = {
   item: ItemTypes;
@@ -32,7 +30,7 @@ const interact: CustomHandler<Props> = (handlerInput, { action, item }) => {
 
   updateSessionAttributes(
     attributesManager,
-    addActionToSession(session, item, action, actionDialog.score)
+    makeNewSession(session, item, action, actionDialog.score)
   );
 
   if (actionDialog.endsGame) {
@@ -54,51 +52,5 @@ export const makeInteractProps: PropsMaker = (session, action, thing) => {
     action,
   };
 };
-
-/************** HELPERS **************/
-
-function determineActionDialog(
-  item: ItemTypes,
-  action: ActionTypes,
-  inventory: ItemTypes[],
-  curRoom: RoomTypes
-): ActionDialog | undefined {
-  if (!item || !Items.includes(item)) return undefined;
-
-  let actionDialogs: ActionDialog[] = [];
-
-  if (inventory.includes(item) && inventoryDialogs[item]) {
-    actionDialogs = inventoryDialogs[item]![action] || [];
-  } else if (roomResponses[curRoom].items[item]) {
-    actionDialogs = roomResponses[curRoom].items[item]![action] || [];
-  } else if (globalDialogs[item]) {
-    actionDialogs = globalDialogs[item]![action] || [];
-  }
-
-  return actionDialogs.find(
-    ({ trigger }) =>
-      inventory.includes(trigger as ItemTypes) ||
-      curRoom === trigger ||
-      !trigger
-  );
-}
-
-function addActionToSession(
-  { inventory, score }: Session,
-  item: ItemTypes,
-  action: ActionTypes,
-  bonus: number = 0
-) {
-  const newSession = {
-    score: score + bonus,
-    inventory: inventory.slice(),
-  };
-
-  if (action === "take" && !inventory.includes(item)) {
-    newSession.inventory.push(item);
-  }
-
-  return newSession;
-}
 
 export default interact;

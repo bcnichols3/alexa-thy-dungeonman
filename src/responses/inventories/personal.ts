@@ -1,6 +1,4 @@
-import { Inventory } from "shared/types/rooms";
-
-const personal: Inventory = {
+const personal = {
   trinket: {
     look: [
       {
