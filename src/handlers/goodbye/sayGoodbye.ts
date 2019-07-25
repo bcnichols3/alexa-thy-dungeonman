@@ -4,11 +4,10 @@ import { Handler } from "shared/types/handlers";
 const sayGoodbye: Handler = handlerInput => {
   const { responseBuilder } = handlerInput;
 
-  const speech = stateResponses.goodbye.final.ssml;
-
-  const builder = responseBuilder.speak(speech).withShouldEndSession(true);
-
-  return builder.getResponse();
+  return responseBuilder
+    .speak(stateResponses.goodbye.final.ssml)
+    .withShouldEndSession(true)
+    .getResponse();
 };
 
 export default sayGoodbye;

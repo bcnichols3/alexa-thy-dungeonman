@@ -1,8 +1,8 @@
-import { initialPersist, Session } from "shared/types/attributes";
+import { newPersist, Session } from "shared/types/attributes";
 import { HandlerInput } from "ask-sdk-core";
 import { Response } from "ask-sdk-model";
 
-const persistedKeys = Object.keys(initialPersist);
+const persistedKeys = Object.keys(newPersist);
 
 export default async function saveAttributes(
   { requestEnvelope, attributesManager }: HandlerInput,
@@ -19,7 +19,7 @@ export default async function saveAttributes(
       persistedAttributes[key] = session[key];
       return persistedAttributes;
     },
-    { ...initialPersist }
+    { ...newPersist }
   );
 
   attributesManager.setPersistentAttributes(persistedAttributes);

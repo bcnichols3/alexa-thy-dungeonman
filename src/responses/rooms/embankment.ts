@@ -1,7 +1,7 @@
 const embankment = {
   intro: {
     ssml:
-      '<audio src="soundbank://soundlibrary/footsteps/sand_gravel_mud/sand_gravel_09"/><p>You head south to an enbankment. Or maybe a chasm. You can\'t decide which. Anyway, ye spies a trinket. Obvious exits are north.</p>',
+      '<audio src="soundbank://soundlibrary/footsteps/sand_gravel_mud/sand_gravel_09"/><p>You head south to an enbankment. Or maybe a chasm.</p><audio src="soundbank://soundlibrary/nature/amzn_sfx_wind_whistling_desert_01"/><p>You can\'t decide which. Anyway, ye spies a trinket. Obvious exits are north.</p>',
     altText:
       "You head south to an enbankment. Or maybe a chasm. You can't decide which. Anyway, ye spies a trinket. Obvious exits are north.",
   },
@@ -37,7 +37,7 @@ const embankment = {
         {
           score: 2,
           ssml:
-            "<p>Ye getsts yon trinket and discover it to be a bauble. You rejoice at your good fortune. You shove the trinket in your pouchel. It kinda hurts.</p>",
+            '<audio src="soundbank://soundlibrary/magic_spells/magic_spells_14"/><p>Ye getsts yon trinket and discover it to be a bauble. You rejoice at your good fortune. You shove the trinket in your pouchel. It kinda hurts.</p>',
           altText:
             "Ye getsts yon trinket and discover it to be a bauble. You rejoice at your good fortune. You shove the trinket in your pouchel. It kinda hurts.",
         },
