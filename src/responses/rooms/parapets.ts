@@ -29,7 +29,7 @@ const parapets = {
           score: -1,
           endsGame: true,
           ssml:
-            "<p>You attempt to take ye rope but alas it is enchanted! It glows a mustard red and smells like a public privy. The rope wraps round your neck and hangs you from parapets. With your last breath, you wonder what parapets are.</p>",
+            '<p>You attempt to take ye rope but alas it is enchanted! <audio src="soundbank://soundlibrary/magic_spells/magic_spells_15"/> It glows a mustard red and smells like a public privy. The rope wraps round your neck and hangs you from parapets. With your last breath, you wonder what parapets are.</p>',
           altText:
             "You attempt to take ye rope but, alas it is enchanted! It glows a mustard red and smells like a public privy. The rope wraps round your neck and hangs you from parapets. With your last breath, you wonder what parapets are.",
         },

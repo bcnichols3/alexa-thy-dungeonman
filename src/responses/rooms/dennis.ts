@@ -26,9 +26,9 @@ const dennis = {
       talk: [
         {
           ssml:
-            "<p>You engage Dennis in leisurely discussion. Ye learns that his jimberjam was purchased on sale at a discount market and that he enjoys pacing about nervously. You become bored and begin thinking about parapets.</p>",
+            "<p>You engage Dennis in leisurely discussion. Ye learns that his jimberjam was purchased on sale at a discount market, and that he enjoys pacing about nervously. You become bored and begin thinking about parapets.</p>",
           altText:
-            "You engage Dennis in leisurely discussion. Ye learns that his jimberjam was purchased on sale at a discount market and that he enjoys pacing about nervously. You become bored and begin thinking about parapets.",
+            "You engage Dennis in leisurely discussion. Ye learns that his jimberjam was purchased on sale at a discount market, and that he enjoys pacing about nervously. You become bored and begin thinking about parapets.",
         },
       ],
     },

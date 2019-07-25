@@ -1,6 +1,6 @@
 import {
-  initialPersist,
-  initialSession,
+  newPersist,
+  newSession,
   Persist,
   Session,
 } from "shared/types/attributes";
@@ -13,7 +13,7 @@ const createNewSession = async (handlerInput: HandlerInput) => {
 
   const persist = (await attributesManager.getPersistentAttributes()) as Persist;
 
-  const session: Session = { ...initialPersist, ...initialSession, ...persist };
+  const session: Session = { ...newPersist, ...newSession, ...persist };
 
   attributesManager.setSessionAttributes(session);
 };

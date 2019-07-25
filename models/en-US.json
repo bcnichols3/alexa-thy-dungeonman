@@ -279,6 +279,13 @@
           "name": "AMAZON.NoIntent"
         },
         {
+          "name": "ClearIntent",
+          "slots": [],
+          "samples": [
+            "clear my game records"
+          ]
+        },
+        {
           "name": "AMAZON.HelpIntent",
           "samples": [
             "helpeth",
