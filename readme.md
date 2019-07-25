@@ -23,19 +23,28 @@ To run this app locally, fork this repo and follow these instructions:
 
 This command runs a Gulp task that will:
 
-* Opens an Ngrok on port 3000
-* Append your `local.skill.json` with your generated Ngrok url
+* Opens an ngrok tunnel on port 3000
+* Append your `local.skill.json` with the newly generated Ngrok url
 * Push the updated manifest to your skill, connecting Alexa to your local endpoint
+* Build your typescript into node-readable JS in `build`
 * Starts a local express server that will serve the contents of the `build` folder.
+* Rebuild and restart the server in response to changes in TypeScript files in `./src`,ignoring `*.test.ts` files
 
 ### `npm run build`
 
-Convert TypeScript to Node-friendly JavaScript and save them to the `build` folder. If you make changes to the codebase, you must run this command before your local endpoint can use them.
-
+Convert TypeScript to Node-friendly JavaScript and save them to the `build` folder. Normally this is done automatically while running the local server.
 
 ### `npm run update-model`
 
 Push model language changes to your dev Alexa skill. If you have changed any user utterances, you must run this command before your skill will begin using them.
+
+### `npm test`
+
+Performs `npm run lint-check`, `npm run test-units` and `npm run test-features` in that order.
+
+### `npm run test-units`
+
+Runs units tests using [Jest](https://jestjs.io/).
 
 ### `npm run test-features`
 

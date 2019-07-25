@@ -1,16 +1,15 @@
 {
+  "script": "local/app.js",
   "restartable": "rs",
-  "ignore": [".git", "node_modules/**/node_modules"],
-  "verbose": true,
+  "verbose": false,
   "execMap": {
     "js": "node --harmony"
   },
   "events": {
     "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
   },
-  "watch": ["./lambda/custom/**/*.js"],
-  "env": {
-    "NODE_ENV": "development"
-  },
-  "ext": "js json"
+  "tasks": ["tsc"],
+  "watch": ["./src/**/*.ts"],
+  "ignore": [".git", "node_modules", "build", "*.test.ts"],
+  "ext": "ts json"
 }
